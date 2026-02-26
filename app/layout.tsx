@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import localFont from 'next/font/local'
+import Header from "./components/layouts/Header/Header";
 
 const plusJakarta = localFont({
   src: [
@@ -33,6 +34,7 @@ export default function RootLayout({
       <body
         className={`${plusJakarta.variable} antialiased`}
       >
+        <Header />
         {children}
       </body>
     </html>

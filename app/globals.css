@@ -2,4 +2,26 @@
 
 @theme {
   --font-sans: var(--font-plus-jakarta);
+  --background-color: #F6F7F9;
+  --logo-color: #3563E9;
+  --active-color: #1262E1;
+  --primary-text-color: #1A202C;
+  --card-white-color: #FFFFFF;
+  --card-gray-color: #90A3BF;
+  --header-border: #C3D4E966;
+  --icon-gray-color: #596780;
+  --icon-border-color: #C3D4E966;
+  --badge-bg: #FF4423;
+  --badge-after-border: #c11111;
+
+}
+
+@theme {
+  --breakpoint-md: 850px;
+  --breakpoint-lg: 1100px;
+}
+
+body {
+  min-height: 100vh;
+  background-color: var(--background-color);
 }

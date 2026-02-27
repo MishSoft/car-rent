@@ -6,10 +6,11 @@ import { IoNotifications } from "react-icons/io5";
 import { IoIosSettings } from "react-icons/io";
 import UserAvatar from "../../ui/user-avatar/UserAvatar";
 import { headerContainer, headerWrapper, icon, iconContainer, iconsWrapper, logoText, searchInputContainer } from "./header.style";
+import { container } from "../layout";
 
 export default function Header() {
   return (
-    <header className={headerContainer}>
+    <header className={container(headerContainer)}>
       <div
         className={headerWrapper}
       >

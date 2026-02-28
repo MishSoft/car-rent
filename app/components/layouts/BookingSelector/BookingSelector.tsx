@@ -4,7 +4,7 @@ import { container } from '../layout'
 
 export default function BookingSelector() {
   return (
-    <section className={`${container} w-full gap-11 flex items-center justify-between`}>
+    <section className={container("w-full relative gap-8 xl:gap-11 flex-col xl:flex-row  flex items-center justify-between")}>
       <SelectField/>
       <SwapButton/>
       <SelectField/>

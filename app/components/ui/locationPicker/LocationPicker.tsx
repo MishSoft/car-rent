@@ -23,28 +23,31 @@ interface CitiesProps {
 
 export function LocationPicker() {
   const [position, setPosition] = React.useState("Select your city")
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button className="w-full flex items-center gap-10" variant="ghost">{position} <FaAngleDown/></Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-32">
-        <DropdownMenuGroup>
-          <DropdownMenuRadioGroup value={position} onValueChange={setPosition}>
 
-            {
-              Cities.cities.map((item: CitiesProps) => {
-                return (
-                  <DropdownMenuRadioItem value={item.name_en}>
-                    {item.name_en}
-                  </DropdownMenuRadioItem>
-                )
-              })
-            }
-          </DropdownMenuRadioGroup>
-        </DropdownMenuGroup>
+        <Button
+          className="cursor-pointer text-gray-500 gap-1 md:gap-2 justify-between w-full px-0 h-auto font-normal hover:bg-transparent"
+          variant="ghost"
+        >
+          <span className=" text-[12px] md:text-[14px]">
+            {position}
+          </span>
+          <FaAngleDown className="shrink-0 size-3 md:size-4" />
+        </Button>
+      </DropdownMenuTrigger>
+
+      <DropdownMenuContent className="min-w-32">
+        <DropdownMenuRadioGroup value={position} onValueChange={setPosition}>
+          {Cities.cities.map((item: CitiesProps) => (
+            <DropdownMenuRadioItem key={item.name_en} value={item.name_en}>
+              {item.name_en}
+            </DropdownMenuRadioItem>
+          ))}
+        </DropdownMenuRadioGroup>
       </DropdownMenuContent>
     </DropdownMenu>
   )
 }
-

@@ -1,5 +1,5 @@
 
-export const herContainer = "relative w-full container";
+export const herContainer = "relative w-full";
 export const heroWrapper = `absolute inset-0 z-10 pointer-events-none
                       bg-linear-to-r from-white/50 via-transparent to-white/50
                       md:hidden`;

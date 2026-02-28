@@ -2,8 +2,6 @@
 
 import * as React from "react"
 import { format } from "date-fns"
-import { Calendar as CalendarIcon } from "lucide-react"
-
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Calendar } from "@/components/ui/calendar"
@@ -22,14 +20,21 @@ export function DatePicker() {
       <PopoverTrigger asChild>
         <Button
           variant="ghost"
-          data-empty={!date}
-          className="data-[empty=true]:text-muted-foreground gap-10 justify-start text-left font-normal"
+          className="cursor-pointer  text-gray-400 font-normal w-full justify-between px-0 gap-1 md:gap-2 hover:bg-transparent"
         >
-          {date ? format(date, "PPP") : (<><span className="text-gray-500">Select your date</span><FaAngleDown /></> )}
+          <span className="truncate text-[12px] md:text-[14px]">
+            {date ? format(date, "PP") : "Select date"}
+          </span>
+          <FaAngleDown className="shrink-0 size-3 md:size-4" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-auto p-0">
-        <Calendar mode="single" selected={date} onSelect={setDate} />
+      <PopoverContent className="w-auto p-0" align="start">
+        <Calendar
+          mode="single"
+          selected={date}
+          onSelect={setDate}
+          initialFocus
+        />
       </PopoverContent>
     </Popover>
   )

@@ -5,7 +5,7 @@ import { herContainer, heroInner, heroWrapper, proCardContainer } from './hero.s
 
 export default function Hero() {
   return (
-    <div className={`${herContainer} ${container}`}>
+    <div className={container(herContainer)}>
       <div className={heroWrapper} />
       <section className={heroInner}>
         <div className={proCardContainer}>

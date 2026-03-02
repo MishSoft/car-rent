@@ -1,13 +1,15 @@
 import SelectField from '../../ui/selector/selectField'
-import SwapButton from '../../ui/selector/swapButton'
+import SwapButton from '../../ui/SwapButton/SwapButton'
+
 import { container } from '../layout'
+import { bookingSelectorContainer } from './bookingSelector.style'
 
 export default function BookingSelector() {
   return (
-    <section className={container("w-full relative gap-8 xl:gap-11 flex-col xl:flex-row  flex items-center justify-between")}>
-      <SelectField/>
+    <section className={container(bookingSelectorContainer)}>
+      <SelectField title={'Pick-Up'} type='pickup' />
       <SwapButton/>
-      <SelectField/>
+      <SelectField title={'Drop-Off'} type='dropoff' />
     </section>
   )
 }

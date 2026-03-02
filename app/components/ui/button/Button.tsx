@@ -1,10 +1,10 @@
 import  { forwardRef } from 'react'
 import { ButtonProps } from './button.types'
 
-const Button = forwardRef<HTMLButtonElement, ButtonProps>(({ className, title, type, ...props }, ref) => {
+const Button = forwardRef<HTMLButtonElement, ButtonProps>(({ children, ...props }, ref) => {
   return (
-    <button type={type} ref={ref} className={className} {...props} >
-      {title}
+    <button ref={ref}  {...props} >
+      {children}
     </button>
   )
 })

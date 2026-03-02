@@ -12,6 +12,8 @@ import {
 } from "@/components/ui/dropdown-menu"
 import Cities from "@/data/Cities.json"
 import { FaAngleDown } from "react-icons/fa6";
+import { pickerButton, pickerSpan, pickerIcon, pickerDropDown } from "../layout/layout"
+import { useBookingStore } from "@/store/useLocationStore"
 
 
 
@@ -21,26 +23,34 @@ interface CitiesProps {
   region: string
 }
 
-export function LocationPicker() {
-  const [position, setPosition] = React.useState("Select your city")
+export function LocationPicker({type}:{type: "pickup" | "dropoff"}) {
+  // const [position, setPosition] = React.useState("Select your city")
+  const location = useBookingStore((state) => state[type].location)
+  const setField = useBookingStore((state) => state.setField)
+
+  const handleCityChange = (value: string) => {
+    setField(type, 'location', value)
+  }
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
 
         <Button
-          className="cursor-pointer text-gray-500 gap-1 md:gap-2 justify-between w-full px-0 h-auto font-normal hover:bg-transparent"
+          className={pickerButton}
           variant="ghost"
         >
-          <span className=" text-[12px] md:text-[14px]">
-            {position}
+          <span className={pickerSpan}>
+            {
+              location || "Select your city"
+            }
           </span>
-          <FaAngleDown className="shrink-0 size-3 md:size-4" />
+          <FaAngleDown className={pickerIcon} />
         </Button>
       </DropdownMenuTrigger>
 
-      <DropdownMenuContent className="min-w-32">
-        <DropdownMenuRadioGroup value={position} onValueChange={setPosition}>
+      <DropdownMenuContent className={pickerDropDown}>
+        <DropdownMenuRadioGroup value={location} onValueChange={handleCityChange}>
           {Cities.cities.map((item: CitiesProps) => (
             <DropdownMenuRadioItem key={item.name_en} value={item.name_en}>
               {item.name_en}

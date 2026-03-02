@@ -16,10 +16,12 @@ export default function PromoCard({ title, description, image, bgImage, buttonTe
         <p className={promoCardDescription}>
           {description}
         </p>
-        <Button
-          className={promoCardBtn(variant || 'primary')}
-          title={buttonText}
-        />
+        <Button className={promoCardBtn(variant || 'primary')} >
+          {
+            buttonText
+          }
+        </Button>
+
       </div>
       <div className={imageContainer}>
         <Image

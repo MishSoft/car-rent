@@ -11,29 +11,40 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import { FaAngleDown } from "react-icons/fa6"
+import { pickerButton, pickerSpan, pickerIcon } from "../layout/layout"
+import { useBookingStore } from "@/store/useLocationStore"
 
-export function DatePicker() {
-  const [date, setDate] = React.useState<Date>()
+export function DatePicker({ type }: { type: 'pickup' | 'dropoff' }) {
+
+  const date = useBookingStore((state) => state[type].date)
+  const setField = useBookingStore((state) => state.setField)
+
+  const handleDateSelect = (newDate: Date | undefined) => {
+    if (newDate) {
+      setField(type, 'date', format(newDate, "PP"))
+    }
+  }
 
   return (
     <Popover>
       <PopoverTrigger asChild>
         <Button
           variant="ghost"
-          className="cursor-pointer  text-gray-400 font-normal w-full justify-between px-0 gap-1 md:gap-2 hover:bg-transparent"
+          className={pickerButton}
         >
-          <span className="truncate text-[12px] md:text-[14px]">
+          <span className={pickerSpan}>
             {date ? format(date, "PP") : "Select date"}
           </span>
-          <FaAngleDown className="shrink-0 size-3 md:size-4" />
+          <FaAngleDown className={pickerIcon} />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0" align="start">
         <Calendar
           mode="single"
           selected={date}
-          onSelect={setDate}
+          onSelect={handleDateSelect}
           initialFocus
+          disabled={(date) => date < new Date(new Date().setHours(0, 0, 0, 0))}
         />
       </PopoverContent>
     </Popover>

@@ -7,6 +7,7 @@ import { IoIosSettings } from "react-icons/io";
 import UserAvatar from "../../ui/user-avatar/UserAvatar";
 import { headerContainer, headerWrapper, icon, iconContainer, iconsWrapper, logoText, searchInputContainer } from "./header.style";
 import { container } from "../layout";
+import Button from "../../ui/button/Button";
 
 export default function Header() {
   return (
@@ -40,8 +41,10 @@ export default function Header() {
               icon={<IoIosSettings size={24} />}
             />
           </div>
-
-          <UserAvatar />
+          <Button className={"bg-(--logo-color) px-8 py-2.5 cursor-pointer hover:bg-(--active-color) duration-200 hover:scale-105 rounded-full text-md font-semibold text-(--card-white-color)"}>
+            Sign In
+          </Button>
+          {/* <UserAvatar /> */}
         </div>
       </div>
     </header>

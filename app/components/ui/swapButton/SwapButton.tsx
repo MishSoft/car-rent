@@ -13,8 +13,5 @@ export default function SwapButton() {
     <Button onClick={swap} type="button" className={swapButton} >
       <FaExchangeAlt size={24} className={swapIcon} />
     </Button>
-    // <>
-    //   <button style={{ borderWidth: 1, backgroundColor: 'red'}} onClick={() => console.log("Hds")}>Click Me</button>
-    // </>
   )
 }

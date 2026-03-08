@@ -16,7 +16,6 @@ export default function CarItem({
   car_passenger_quantity,
   car_rent_price,
   car_image,
-  data
 }: CarProps) {
 
   return (
@@ -30,7 +29,7 @@ export default function CarItem({
             {car_equipment}
           </span>
         </div>
-        <Button onClick={() => console.log(data)} className={favoriteButton}>
+        <Button className={favoriteButton}>
           {is_favorite ? <FaHeart size={20} className={isActiveFavoriteIcon} /> : <FaRegHeart size={20} className={defaultFavoriteIcon} />}
         </Button>
       </div>
@@ -40,26 +39,26 @@ export default function CarItem({
       </div>
       <div className={carInfoContainer}>
         <span className={carInfoSpan}>
-          <FaGasPump size={20} />
+          <FaGasPump className="size-5" />
           {car_fuel}L
         </span>
 
         <span className={carInfoSpan}>
-          <TbManualGearbox size={20} />
+          <TbManualGearbox className="size-5" />
           {car_gearbox}
         </span>
 
         <span className={carInfoSpan}>
-          <FaUsers size={20} />
+          <FaUsers className="size-5" />
           {car_passenger_quantity}
         </span>
       </div>
 
       <div className={carRentPriceContainer}>
-        <span className={carRentPriceText}>
+        <h2 className={carRentPriceText}>
           ${`${car_rent_price}.00/`}
           <span className={carRentPriceDayText}>day</span>
-        </span>
+        </h2>
         <Button className={rentalButton}>
           Rental Now
         </Button>

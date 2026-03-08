@@ -1,0 +1,118 @@
+{
+  "cars": [
+    {
+      "name": "Koenigsegg",
+      "equipment": "Sport",
+      "fuelCapacity": "90",
+      "transmission": "Manual",
+      "passengerCapacity": "2",
+      "pricePerDay": "99",
+      "oldPrice": "",
+      "imageUrl": "/images/koenigsegg.png",
+      "isAvailable": false
+    },
+    {
+      "name": "Nissan GT-R",
+      "equipment": "Sport",
+      "fuelCapacity": "80",
+      "transmission": "Manual",
+      "passengerCapacity": "2",
+      "pricePerDay": "80",
+      "oldPrice": "100",
+      "imageUrl": "/images/nissan-gt-r.png",
+      "isAvailable": false,
+      "isPopular": true
+    },
+    {
+      "name": "Nissan GT-R",
+      "equipment": "Sport",
+      "fuelCapacity": "80",
+      "transmission": "Manual",
+      "passengerCapacity": "2",
+      "pricePerDay": "80",
+      "oldPrice": "100",
+      "imageUrl": "/images/nissan-gt-r.png",
+      "isAvailable": false
+    },
+    {
+      "name": "Rolls-Royce",
+      "equipment": "Sedan",
+      "fuelCapacity": "70",
+      "transmission": "Manual",
+      "passengerCapacity": "4",
+      "pricePerDay": "96",
+      "oldPrice": "",
+      "imageUrl": "/images/rolls-royce.png",
+      "isAvailable": false,
+      "isPopular": true
+    },
+    {
+      "name": "All New Rush",
+      "equipment": "SUV",
+      "fuelCapacity": "70",
+      "transmission": "Auto",
+      "passengerCapacity": "6",
+      "pricePerDay": "72",
+      "oldPrice": "80",
+      "imageUrl": "/images/all-new-rush.png",
+      "isAvailable": false
+    },
+    {
+      "name": "CR-V",
+      "equipment": "SUV",
+      "fuelCapacity": "80",
+      "transmission": "Auto",
+      "passengerCapacity": "6",
+      "pricePerDay": "80",
+      "oldPrice": "",
+      "imageUrl": "/images/cr-v.png",
+      "isAvailable": false
+    },
+    {
+      "name": "All New Terios",
+      "equipment": "SUV",
+      "fuelCapacity": "90",
+      "transmission": "Auto",
+      "passengerCapacity": "6",
+      "pricePerDay": "74",
+      "oldPrice": "",
+      "imageUrl": "/images/all-new-terios.png",
+      "isAvailable": false,
+      "isPopular": true
+    },
+    {
+      "name": "MG ZX Exclusice",
+      "equipment": "SUV",
+      "fuelCapacity": "70",
+      "transmission": "Auto",
+      "passengerCapacity": "4",
+      "pricePerDay": "76",
+      "oldPrice": "80",
+      "imageUrl": "/images/mg-zx-exclusive.png",
+      "isAvailable": false
+    },
+    {
+      "name": "New MG ZS",
+      "equipment": "SUV",
+      "fuelCapacity": "80",
+      "transmission": "Auto",
+      "passengerCapacity": "6",
+      "pricePerDay": "80",
+      "oldPrice": "",
+      "imageUrl": "/images/new-mg-zs.png",
+      "isAvailable": false
+    },
+    {
+      "name": "MG ZX Excite",
+      "equipment": "Hatchback",
+      "fuelCapacity": "90",
+      "transmission": "Auto",
+      "passengerCapacity": "6",
+      "pricePerDay": "74",
+      "oldPrice": "",
+      "imageUrl": "/images/mg-zx-excite.png",
+      "isAvailable": false,
+      "isPopular": true
+    }
+  ]
+}

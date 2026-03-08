@@ -1,13 +1,17 @@
+"use client"
 import Link from "next/link";
-import Input from "../../ui/input/Input";
 import IconButton from "../../ui/icon-button/icon-button";
 import { MdFavorite } from "react-icons/md";
 import { IoNotifications } from "react-icons/io5";
 import { IoIosSettings } from "react-icons/io";
 import UserAvatar from "../../ui/user-avatar/UserAvatar";
-import { headerContainer, headerWrapper, icon, iconContainer, iconsWrapper, logoText, searchInputContainer } from "./header.style";
+import { headerContainer, headerWrapper, icon, iconColor, iconContainer, iconsWrapper, inputContainer, inputStyle, inputWrapper, logoText, searchInputContainer, settingButton } from './header.style';
 import { container } from "../layout";
+import { FaUser } from "react-icons/fa6";
 import Button from "../../ui/button/Button";
+import { CiSearch } from "react-icons/ci";
+import { VscSettings } from "react-icons/vsc";
+import { Input } from "@/components/ui/input";
 
 export default function Header() {
   return (
@@ -22,7 +26,22 @@ export default function Header() {
         </Link>
 
         <div className={searchInputContainer}>
-          <Input />
+          <div className={inputContainer}>
+            <div className={inputWrapper}>
+              <CiSearch size={25} className={iconColor} />
+
+              <Input
+                type="text"
+                className={inputStyle}
+                placeholder="Search something here"
+                aria-label="search"
+              />
+            </div>
+
+            <button className={settingButton}>
+              <VscSettings size={25} className={iconColor} />
+            </button>
+          </div>
         </div>
 
         <div className={iconsWrapper}>
@@ -41,10 +60,8 @@ export default function Header() {
               icon={<IoIosSettings size={24} />}
             />
           </div>
-          <Button className={"bg-(--logo-color) px-8 py-2.5 cursor-pointer hover:bg-(--active-color) duration-200 hover:scale-105 rounded-full text-md font-semibold text-(--card-white-color)"}>
-            Sign In
-          </Button>
-          {/* <UserAvatar /> */}
+
+          <UserAvatar />
         </div>
       </div>
     </header>

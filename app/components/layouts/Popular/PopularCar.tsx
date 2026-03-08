@@ -1,12 +1,31 @@
 "use client"
-import  { useState } from 'react'
 import { container } from '../layout'
 import Button from '../../ui/button/Button'
 import CarItem from '../../ui/carItem/CarItem'
 import { itemsContainer, rentalCarsSectionTitle, rentalCarsSectionWrapper, viewAllItemsButton } from './popularCar.style'
+import cars from "@/data/CardData.json"
+import { useEffect, useState } from 'react'
+
+type Cars = {
+  name: string
+  equipment: string
+  fuelCapacity: string
+  transmission: string
+  passengerCapacity: string
+  pricePerDay: string
+  oldPrice: string
+  imageUrl: string
+  isAvailable: boolean
+  isPopular?: boolean
+}
 
 export default function PopularCar() {
-  const [isFavorite, setIsFavorite] = useState(false)
+  const [carData, setCarData] = useState<Cars[]>([])
+
+  useEffect(() => {
+    const popularCars = cars.cars.filter(car => car.isPopular)
+    setCarData(popularCars)
+  }, [])
   return (
     <section className={container()}>
       <div className={rentalCarsSectionWrapper}>
@@ -17,12 +36,9 @@ export default function PopularCar() {
       </div>
       <div className={itemsContainer}>
         {
-          [1, 2, 3, 4].map((item: number) => {
-            console.log(item)
-            return (
-              <CarItem key={item} car_name={'Koenigsegg'} car_equipment={'Sport'} is_favorite={false} car_fuel={'90'} car_gearbox={'Manual'} car_passenger_quantity={'2'} car_rent_price={'99'} car_image={'/images/car1.png'} data={item} />
-            )
-          })
+          carData.map((item, index) => (
+            <CarItem key={index} car_name={item.name} car_equipment={item.equipment} is_favorite={false} car_fuel={item.fuelCapacity} car_gearbox={item.transmission} car_passenger_quantity={item.passengerCapacity} car_rent_price={item.pricePerDay} car_image={item.imageUrl} />
+          ))
         }
       </div>
     </section>

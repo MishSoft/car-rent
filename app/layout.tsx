@@ -34,7 +34,6 @@ export default function RootLayout({
       <body
         className={`${plusJakarta.variable} antialiased`}
       >
-        <Header />
         {children}
       </body>
     </html>

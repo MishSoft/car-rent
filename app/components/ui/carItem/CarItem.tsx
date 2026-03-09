@@ -5,6 +5,7 @@ import { FaUsers } from "react-icons/fa6";
 
 import Button from "../button/Button";
 import { article, carInfoContainer, carInfoSpan, carRentPriceContainer, carRentPriceDayText, carRentPriceText, defaultFavoriteIcon, favoriteButton, isActiveFavoriteIcon, itemHeader, itemHeaderSpan, itemImage, itemImageContainer, itemTitle, itemTitleContainer, rentalButton } from "./caritem.style";
+import Image from "next/image";
 
 
 export default function CarItem({
@@ -16,10 +17,12 @@ export default function CarItem({
   car_passenger_quantity,
   car_rent_price,
   car_image,
+  className,
+  old_price
 }: CarProps) {
 
   return (
-    <article className={article}>
+    <article className={article(className)}>
       <div className={itemHeader}>
         <div className={itemTitleContainer}>
           <h2 className={itemTitle}>
@@ -39,26 +42,31 @@ export default function CarItem({
       </div>
       <div className={carInfoContainer}>
         <span className={carInfoSpan}>
-          <FaGasPump className="size-5" />
+          <Image width={24} height={24} src={'/icons/gas-station.svg'} alt="Gas Station icon" />
           {car_fuel}L
         </span>
 
         <span className={carInfoSpan}>
-          <TbManualGearbox className="size-5" />
+          <Image width={24} height={24} src={'/icons/transmission.svg'} alt="Gas Station icon" />
           {car_gearbox}
         </span>
 
         <span className={carInfoSpan}>
-          <FaUsers className="size-5" />
+          <Image width={24} height={24} src={'/icons/profile-2user.svg'} alt="Gas Station icon" />
           {car_passenger_quantity}
         </span>
       </div>
 
       <div className={carRentPriceContainer}>
-        <h2 className={carRentPriceText}>
-          ${`${car_rent_price}.00/`}
-          <span className={carRentPriceDayText}>day</span>
-        </h2>
+        <div>
+          <h2 className={carRentPriceText}>
+            ${`${car_rent_price}.00/`}
+            <span className={carRentPriceDayText}>day</span>
+          </h2>
+          {
+            old_price && <span className="text-gray-400 line-through">${old_price}.00</span>
+          }
+        </div>
         <Button className={rentalButton}>
           Rental Now
         </Button>

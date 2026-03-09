@@ -15,7 +15,7 @@ export default function Hero() {
             className={getPromoCardStyles('primary')}
             title={'The Best Platform for Car Rental'}
             description={'Ease of doing a car rental safely and reliably. Of course at a low price.'}
-            image={'/images/car1.png'}
+            image={'/images/koenigsegg.png'}
             bgImage={'/effects/BG.svg'}
           />
         </div>
@@ -26,7 +26,7 @@ export default function Hero() {
             className={getPromoCardStyles('secondary')}
             title={'Easy way to rent a car at a low price'}
             description={'Providing cheap car rental services and safe and comfortable facilities.'}
-            image={'/images/car2.png'}
+            image={'/images/nissan-gt-r.png'}
             bgImage={'/effects/BG2.svg'}
           />
         </div>

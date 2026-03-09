@@ -1,6 +1,10 @@
-export const article =
-  "w-full h-full md:w-[304px]   flex-shrink-0 bg-(--card-white-color) rounded-lg flex flex-col  gap-6 justify-between   p-6 shadow-sm";
+import clsx from "clsx";
 
+export const article = (className?: string) =>
+  clsx(
+    "bg-(--card-white-color) flex-shrink-0 rounded-lg flex flex-col gap-6 justify-between p-6 shadow-sm",
+    className,
+  );
 export const itemHeader = "w-full flex items-start justify-between";
 
 export const itemTitleContainer = "flex flex-col gap-1";
@@ -16,8 +20,7 @@ export const itemImageContainer =
 
 export const itemImage = "max-w-full max-h-full object-contain";
 
-export const carInfoContainer =
-  "flex items-center justify-between flex-wrap gap-2";
+export const carInfoContainer = "flex items-center justify-between";
 
 export const carInfoSpan =
   "flex items-center text-[12px] md:text-base font-semibold text-(--card-gray-color) gap-1";

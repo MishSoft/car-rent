@@ -7,4 +7,6 @@ interface CarProps {
   car_passenger_quantity: string;
   car_rent_price: string;
   car_image: string;
+  className?: string;
+  old_price?: string;
 }

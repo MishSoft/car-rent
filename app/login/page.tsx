@@ -1,7 +1,10 @@
+"use client"
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label' // Shadcn-ის Label გამოიყენე
+import { Label } from '@/components/ui/label'
+import { signIn } from 'next-auth/react'
 import Link from 'next/link'
+import { useState } from 'react'
 
 const LOGIN_FIELDS = [
   {
@@ -19,6 +22,34 @@ const LOGIN_FIELDS = [
 ] as const
 
 export default function RegisterPage() {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
+
+
+
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault()
+    setLoading(true)
+    setError('')
+
+    const result = await signIn('credential', {
+      redirect: false,
+      email,
+      password
+    })
+
+    setLoading(false)
+
+    if (result?.error) {
+      setError("Invalid Credential")
+    } else {
+      window.location.href = "/"
+    }
+  }
+
+
   return (
     <div className='min-h-screen flex items-center justify-center bg-gray-50 p-4'>
       <div className='p-8 bg-white max-w-125 w-full rounded-xl shadow-md space-y-6'>
@@ -27,17 +58,27 @@ export default function RegisterPage() {
           <p className='text-center text-sm text-muted-foreground'>Enter your details to create an account</p>
         </div>
 
-        <form className='flex flex-col gap-4'>
+        <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
           {
             LOGIN_FIELDS.map(field => (
               <div key={field.id} className='w-full space-y-2'>
                 <Label htmlFor={field.id}>{field.label}</Label>
-                <Input type={field.type} id={field.id} placeholder={field.placeholder} />
+                <Input
+
+                  type={field.type}
+                  id={field.id}
+                  value={field.id === 'email' ? email : password}
+                  onChange={e => field.id === 'email' ? setEmail(e.target.value) : setPassword(e.target.value)}
+                  placeholder={field.placeholder} />
               </div>
             ))}
-
-          <Button className='w-full sm:col-span-2 mt-2' type="submit">
-            Sign In
+          {
+            error && <p className='text-red-500 text-sm'>{error}</p>
+          }
+          <Button disabled={loading} className='w-full sm:col-span-2 mt-2 bg-(--logo-color) cursor-pointer' type="submit">
+            {
+              loading ? "Sign in..." : "Sign In"
+            }
           </Button>
 
           <p className='text-center col-span-2 text-gray-600'>

@@ -1,42 +1,43 @@
-import {auth} from "@/lib/auth"
-import { NextURL } from "next/dist/server/web/next-url";
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
+import jwt from "jsonwebtoken";
 
-export default auth((req: { auth?: any; nextUrl?: any }) => {
-  const isLoggedIn = !!req.auth
-  const {nextUrl} = req
+export default function middleware(req: NextRequest) {
+  const pathname = req.nextUrl.pathname;
 
-  const isPublicRoute =
-    nextUrl.pathname === "/" ||
-    nextUrl.pathname.startsWith('/cars')
-    nextUrl.pathname === "/login" ||
-    nextUrl.pathname === "/register"
-
-
-  const isApiAuthRoute = nextUrl.pathname.startsWith('/api/auth')
-  const isAdminRoute = nextUrl.pathname.startsWidth('/admin')
-
-
-  if(isApiAuthRoute) return
-
-  if(isAdminRoute) {
-    if(!isLoggedIn || req.auth?.user?.role !== "ADMIN") {
-      return Response.redirect(new URL("/", nextUrl))
-    }
-    return
+  if(req.nextUrl.pathname.startsWith("/api")) {
+    return NextResponse.next()
   }
 
-  if(isLoggedIn && (nextUrl.pathname === "/login" || nextUrl.pathname === "register")) {
-      return Response.redirect(new URL('/', nextUrl))
+  const isPublic =
+    pathname === "/" ||
+    pathname.startsWith("/cars") ||
+    pathname === "/login" ||
+    pathname === "/register";
+
+  if (isPublic) return NextResponse.next();
+
+  const token = req.cookies.get("next-auth.session-token")?.value;
+  if (!token) {
+    const loginUrl = new URL("/login", req.url);
+    return NextResponse.redirect(loginUrl);
   }
 
-  if(!isLoggedIn && !isPublicRoute) {
-    return Response.redirect(new URL('/login', nextUrl))
+  let userRole = "USER";
+  try {
+    const decoded: any = jwt.decode(token);
+    if (decoded?.role) userRole = decoded.role;
+  } catch (err) {
+    return NextResponse.redirect("/login");
   }
 
-  return
-})
+  if (pathname.startsWith("/admin") && userRole !== "ADMIN") {
+    return NextResponse.redirect("/");
+  }
 
+  return NextResponse.next();
+}
 
 export const config = {
-  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
+  matcher: ["/((?!_next/static|_next/image|favicon.ico).*)"],
 };

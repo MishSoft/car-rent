@@ -8,12 +8,14 @@ import UserAvatar from "../../ui/user-avatar/UserAvatar";
 import { headerContainer, headerWrapper, icon, iconColor, iconContainer, iconsWrapper, inputContainer, inputStyle, inputWrapper, logoText, searchInputContainer, settingButton } from './header.style';
 import { container } from "../layout";
 import { FaUser } from "react-icons/fa6";
-import Button from "../../ui/button/Button";
 import { CiSearch } from "react-icons/ci";
 import { VscSettings } from "react-icons/vsc";
 import { Input } from "@/components/ui/input";
+import { useSession, signIn } from "next-auth/react"
+import { Button } from "@/components/ui/button";
 
 export default function Header() {
+  const { data: session } = useSession()
   return (
     <header className={container(headerContainer)}>
       <div
@@ -38,9 +40,9 @@ export default function Header() {
               />
             </div>
 
-            <button className={settingButton}>
+            <Button className={settingButton}>
               <VscSettings size={25} className={iconColor} />
-            </button>
+            </Button>
           </div>
         </div>
 
@@ -61,7 +63,17 @@ export default function Header() {
             />
           </div>
 
-          <UserAvatar />
+          {
+            session?.user ? (
+              <UserAvatar />
+            ) : (
+              <Button
+                onClick={() => window.location.href = '/login'}
+                className="bg-(--logo-color)">
+                Sign In
+              </Button>
+            )
+          }
         </div>
       </div>
     </header>

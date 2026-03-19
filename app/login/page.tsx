@@ -34,7 +34,7 @@ export default function RegisterPage() {
     setLoading(true)
     setError('')
 
-    const result = await signIn('credential', {
+    const result = await signIn('credentials', {
       redirect: false,
       email,
       password

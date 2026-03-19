@@ -11,7 +11,7 @@ import { FaUser } from "react-icons/fa6";
 import { CiSearch } from "react-icons/ci";
 import { VscSettings } from "react-icons/vsc";
 import { Input } from "@/components/ui/input";
-import { useSession, signIn } from "next-auth/react"
+import { useSession } from "next-auth/react"
 import { Button } from "@/components/ui/button";
 
 export default function Header() {
@@ -40,9 +40,9 @@ export default function Header() {
               />
             </div>
 
-            <Button className={settingButton}>
-              <VscSettings size={25} className={iconColor} />
-            </Button>
+            <Link href={'/search'} className={settingButton}>
+              <VscSettings size={20} className={iconColor} />
+            </Link>
           </div>
         </div>
 
@@ -52,15 +52,17 @@ export default function Header() {
               className={icon}
               icon={<MdFavorite size={24} />}
             />
-            <IconButton
-              className={icon}
-              icon={<IoNotifications size={24} />}
-              badge
-            />
-            <IconButton
+            {
+              session?.user && <IconButton
+                className={icon}
+                icon={<IoNotifications size={24} />}
+                badge
+              />
+            }
+            {/* <IconButton
               className={icon}
               icon={<IoIosSettings size={24} />}
-            />
+            /> */}
           </div>
 
           {

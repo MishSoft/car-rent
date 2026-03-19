@@ -1,11 +1,15 @@
+"use client"
 import { FaRegHeart, FaHeart } from "react-icons/fa6";
 import { FaGasPump } from "react-icons/fa";
 import { TbManualGearbox } from "react-icons/tb";
 import { FaUsers } from "react-icons/fa6";
 
-import Button from "../button/Button";
 import { article, carInfoContainer, carInfoSpan, carRentPriceContainer, carRentPriceDayText, carRentPriceText, defaultFavoriteIcon, favoriteButton, isActiveFavoriteIcon, itemHeader, itemHeaderSpan, itemImage, itemImageContainer, itemTitle, itemTitleContainer, rentalButton } from "./caritem.style";
 import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import { useSession } from "next-auth/react";
+import Link from "next/link";
+import { redirect } from "next/navigation";
 
 
 export default function CarItem({
@@ -20,6 +24,8 @@ export default function CarItem({
   className,
   old_price
 }: CarProps) {
+
+  const { data: session } = useSession()
 
   return (
     <article className={article(className)}>
@@ -67,9 +73,17 @@ export default function CarItem({
             old_price && <span className="text-gray-400 line-through">${old_price}.00</span>
           }
         </div>
-        <Button className={rentalButton}>
-          Rental Now
-        </Button>
+        {
+          session?.user ? (
+            <Button className={rentalButton}>
+              Rental Now
+            </Button>
+          ) : (
+            <Link href={'/login'} className={rentalButton}>
+              Rental Now
+            </Link>
+          )
+        }
       </div>
     </article>
   )

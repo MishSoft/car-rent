@@ -12,7 +12,7 @@ export default function Recomendation() {
 
 
   return (
-    <section className={container()}>
+    <section className="py-10">
       <h2 className={recomendationTitle}>Recomendation Car</h2>
       <div className={recomendationItemContainer}>
         {

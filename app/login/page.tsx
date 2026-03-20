@@ -2,7 +2,7 @@
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { signIn } from 'next-auth/react'
+import { signIn, getSession } from 'next-auth/react'
 import Link from 'next/link'
 import { useState } from 'react'
 
@@ -45,7 +45,12 @@ export default function RegisterPage() {
     if (result?.error) {
       setError("Invalid Credential")
     } else {
-      window.location.href = "/"
+      const session = await getSession()
+      if (session?.user?.role === 'ADMIN') {
+        window.location.href = "/admin"
+      } else {
+        window.location.href = "/"
+      }
     }
   }
 

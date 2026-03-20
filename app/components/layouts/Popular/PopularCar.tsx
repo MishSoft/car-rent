@@ -32,7 +32,7 @@ export default function PopularCar() {
   }, []);
 
   return (
-    <section className={container()}>
+    <section className="my-10">
       <div className={rentalCarsSectionWrapper}>
         <h2 className={rentalCarsSectionTitle}>Popular Car</h2>
         <Button className={viewAllItemsButton}>View All</Button>

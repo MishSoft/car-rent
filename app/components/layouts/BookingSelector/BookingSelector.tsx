@@ -6,7 +6,7 @@ import { bookingSelectorContainer } from './bookingSelector.style'
 
 export default function BookingSelector() {
   return (
-    <section className={container(bookingSelectorContainer)}>
+    <section className={bookingSelectorContainer}>
       <SelectField title={'Pick-Up'} type='pickup' />
       <SwapButton/>
       <SelectField title={'Drop-Off'} type='dropoff' />

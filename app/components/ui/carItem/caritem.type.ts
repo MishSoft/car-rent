@@ -9,4 +9,5 @@ interface CarProps {
   car_image: string;
   className?: string;
   old_price?: string;
+  routePath?: string
 }

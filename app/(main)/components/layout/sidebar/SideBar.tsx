@@ -46,7 +46,6 @@ export default function SideBar() {
   const [capacity, setCapacity] = useState<CarProps[]>(capacityData)
   const [price, setPrice] = useState<number>(100) // max price default
 
-  // handle checkboxes separately
   const handleCheck = (category: string, type: "car" | "capacity") => {
     if (type === "car") {
       setCarData(prev =>
@@ -68,8 +67,13 @@ export default function SideBar() {
   }
 
   return (
-    <aside className="max-w-90 w-full flex flex-col gap-10 min-h-screen px-15 py-10 bg-(--card-white-color)">
-      {/* Car Type Section */}
+    <aside className=" hidden lg:flex
+  lg:max-w-[280px]
+  xl:max-w-[320px]
+  w-full
+  flex-col gap-8
+  px-6 py-10
+  bg-(--card-white-color)">
       <div className="flex flex-col gap-7">
         <span className="text-xs uppercase tracking-widest font-semibold text-(--card-gray-color)">
           type
@@ -85,7 +89,6 @@ export default function SideBar() {
         </div>
       </div>
 
-      {/* Capacity Section */}
       <div className="flex flex-col gap-7">
         <span className="text-xs uppercase tracking-widest font-semibold text-(--card-gray-color)">
           capacity
@@ -101,7 +104,6 @@ export default function SideBar() {
         </div>
       </div>
 
-      {/* Price Slider Section */}
       <div className="flex flex-col gap-7">
         <span className="text-xs uppercase tracking-widest font-semibold text-(--card-gray-color)">
           price

@@ -8,7 +8,7 @@ import { usePopUpStore } from "@/store/usePopUpStore";
 
 export default function Home() {
   return (
-    <main >
+    <main className="py-10 px-15">
       <Hero />
       <BookingSelector />
       <PopularCar />

@@ -1,0 +1,7 @@
+refactor(ui & auth): improve styling, add rental detail & admin panel, fix role handling
+
+- Refactored global styles: removed the global `container` class that was interfering with item layouts on the search page; applied scoped styling to parent elements only.
+- Added `RentalDetail` page: users clicking "Rental Now" are now redirected to a detailed page showing car specifications, reviews (both positive and negative), recommended cars, and similar cars based on user selection. Placeholder data is used for now.
+- Added `Admin` page: provides a dashboard for administrators to upload cars for rental, intended for company internal use.
+- Fixed middleware & auth issues: resolved problems with admin role recognition, caused by outdated Prisma integration and differences in NextAuth token handling. Updated code now correctly fetches roles directly from the Prisma schema and works seamlessly with Next.js Edge middleware.
+- Ensured NextAuth sessions now properly validate admin roles and redirect accordingly.

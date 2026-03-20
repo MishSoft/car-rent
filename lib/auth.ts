@@ -3,18 +3,6 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import prisma from "./prisma";
 
-interface SessionUser {
-  id?: string;
-  role?: string;
-  name?: string;
-  email?: string;
-}
-
-declare module "next-auth" {
-  interface Session {
-    user: SessionUser;
-  }
-}
 
 export default NextAuth({
   adapter: PrismaAdapter(prisma),
@@ -27,15 +15,37 @@ export default NextAuth({
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        return null;
+        if (!credentials?.email || !credentials.password) return null;
+
+        const user = await prisma.user.findUnique({
+          where: { email: credentials.email },
+        });
+
+        if (!user || !user.password) {
+          return null;
+        }
+
+        const { compare } = await import("bcryptjs");
+        const isValid = await compare(credentials.password, user.password);
+
+        if (!isValid) {
+          return null;
+        }
+
+        return {
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          role: user.role,
+        };
       },
     }),
   ],
   callbacks: {
     async session({ session, token }) {
       if (session.user) {
-        session.user.id = token.sub;
-        session.user.role = token.role as string;
+        session.user.id = token.sub as string;
+        session.user.role = token.role as any;
       }
       return session;
     },

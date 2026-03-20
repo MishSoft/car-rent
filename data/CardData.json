@@ -1,6 +1,7 @@
 {
   "cars": [
     {
+      "id": 1,
       "name": "Koenigsegg",
       "equipment": "Sport",
       "fuelCapacity": "90",
@@ -12,7 +13,8 @@
       "isAvailable": false
     },
     {
-      "name": "Nissan GT-R",
+      "id": 2,
+      "name": "Nissan GT-R 2",
       "equipment": "Sport",
       "fuelCapacity": "80",
       "transmission": "Manual",
@@ -24,6 +26,7 @@
       "isPopular": true
     },
     {
+      "id": 3,
       "name": "Nissan GT-R",
       "equipment": "Sport",
       "fuelCapacity": "80",
@@ -35,6 +38,7 @@
       "isAvailable": false
     },
     {
+      "id": 4,
       "name": "Rolls-Royce",
       "equipment": "Sedan",
       "fuelCapacity": "70",
@@ -58,6 +62,7 @@
       "isAvailable": false
     },
     {
+      "id": 5,
       "name": "CR-V",
       "equipment": "SUV",
       "fuelCapacity": "80",
@@ -69,6 +74,7 @@
       "isAvailable": false
     },
     {
+      "id": 6,
       "name": "All New Terios",
       "equipment": "SUV",
       "fuelCapacity": "90",
@@ -81,6 +87,7 @@
       "isPopular": true
     },
     {
+      "id": 7,
       "name": "MG ZX Exclusice",
       "equipment": "SUV",
       "fuelCapacity": "70",
@@ -92,6 +99,7 @@
       "isAvailable": false
     },
     {
+      "id": 8,
       "name": "New MG ZS",
       "equipment": "SUV",
       "fuelCapacity": "80",
@@ -103,6 +111,7 @@
       "isAvailable": false
     },
     {
+      "id": 9,
       "name": "MG ZX Excite",
       "equipment": "Hatchback",
       "fuelCapacity": "90",

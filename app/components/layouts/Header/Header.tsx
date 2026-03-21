@@ -13,6 +13,8 @@ import { VscSettings } from "react-icons/vsc";
 import { Input } from "@/components/ui/input";
 import { useSession } from "next-auth/react"
 import { Button } from "@/components/ui/button";
+import FavoriteSidebar from "../../sidebars/FavoriteSidebar";
+import NotificationSidebar from "../../sidebars/NotificationSidebar";
 
 export default function Header() {
   const { data: session } = useSession()
@@ -48,16 +50,9 @@ export default function Header() {
 
         <div className={iconsWrapper}>
           <div className={iconContainer}>
-            <IconButton
-              className={icon}
-              icon={<MdFavorite size={24} />}
-            />
+            <FavoriteSidebar />
             {
-              session?.user && <IconButton
-                className={icon}
-                icon={<IoNotifications size={24} />}
-                badge
-              />
+              session?.user && <NotificationSidebar />
             }
             {/* <IconButton
               className={icon}

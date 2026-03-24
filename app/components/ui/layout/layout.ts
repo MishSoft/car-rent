@@ -10,3 +10,4 @@ export const pickerDropDown = "flex gap-2 p-2 min-w-[200px] justify-center";
 
 
 
+export default function Layout({ children }: any) { return children; }

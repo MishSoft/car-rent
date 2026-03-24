@@ -55,6 +55,9 @@ model Car {
   hasDiscount    Boolean @default(false)
 
   isAvailable    Boolean @default(true)
+  rentalsCount Int @default(0)
+  isRecommended  Boolean @default(false)
+  isPopular      Boolean @default(false)
 
   userId String?
   admin  User?   @relation("AdminCars", fields: [userId], references: [id])

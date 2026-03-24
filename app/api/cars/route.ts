@@ -6,6 +6,60 @@ import { writeFile, mkdir } from "fs/promises";
 import path from "path";
 import { CarType } from "@/app/generated/prisma/client";
 
+export async function GET(req: NextRequest) {
+  try {
+    const { searchParams } = req.nextUrl;
+
+    const type = searchParams.get("type") as CarType | null;
+    const location = searchParams.get("location");
+    const search = searchParams.get("search");
+    const available = searchParams.get("isAvailable");
+    const page = Math.max(1, parseInt(searchParams.get("page") ?? "1"));
+    const limit = Math.min(
+      100,
+      Math.max(1, parseInt(searchParams.get("limit") ?? "20")),
+    );
+    const skip = (page - 1) * limit;
+
+    const where: Record<string, any> = {};
+
+    if (type) where.type = type;
+    if (location) where.location = { contains: location, mode: "insensitive" };
+    if (available !== null && available !== undefined) {
+      where.isAvailable = available === "true";
+    }
+    if (search) {
+      where.name = { contains: search, mode: "insensitive" };
+    }
+
+    const [cars, total] = await Promise.all([
+      prisma.car.findMany({
+        where,
+        orderBy: { name: "asc" },
+        skip,
+        take: limit,
+      }),
+      prisma.car.count({ where }),
+    ]);
+
+    return NextResponse.json({
+      cars,
+      pagination: {
+        total,
+        page,
+        limit,
+        totalPages: Math.ceil(total / limit),
+      },
+    });
+  } catch (error: any) {
+    console.error("Car fetch error:", error);
+    return NextResponse.json(
+      { error: error.message || "Failed to fetch cars" },
+      { status: 500 },
+    );
+  }
+}
+
 export async function POST(req: NextRequest) {
   try {
     const session = await getServerSession(authOptions);
@@ -15,7 +69,11 @@ export async function POST(req: NextRequest) {
     }
 
     const formData = await req.formData();
-    
+
+   for (const [key, value] of formData.entries()) {
+     console.log(key, value);
+   }
+
     // Extract text fields
     const name = formData.get("name") as string;
     const pricePerDay = parseFloat(formData.get("pricePerDay") as string);
@@ -59,6 +117,9 @@ export async function POST(req: NextRequest) {
         passengerLimit,
         location,
         imageUrl,
+        rentalsCount: 0,
+        isRecommended: formData.get("isRecommended") === "on",
+        isPopular: formData.get("isPopular") === "on",
       },
     });
 

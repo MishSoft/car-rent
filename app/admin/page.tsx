@@ -14,6 +14,8 @@ import {
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox"
+import { Label } from "@/components/ui/label";
 
 export default function AdminPage() {
   const [loading, setLoading] = useState(false);
@@ -36,7 +38,7 @@ export default function AdminPage() {
 
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Failed to add car");
-      
+
       setSuccessMsg("Car added successfully!");
       form.reset();
     } catch (err: any) {
@@ -68,7 +70,7 @@ export default function AdminPage() {
               <Input type="number" name="pricePerDay" placeholder="Price per day ($)" className="w-full" step="0.01" required />
               <Input type="number" name="fuelCapacity" placeholder="Fuel Capacity (L)" className="w-full" required />
               <Input type="text" name="location" placeholder="Location (e.g. Tbilisi)" className="w-full" required />
-              
+
               <Input type="file" name="image" className="w-full" required accept="image/*" />
 
               <div className="flex flex-wrap gap-4 mt-2">
@@ -117,6 +119,17 @@ export default function AdminPage() {
                     </SelectGroup>
                   </SelectContent>
                 </Select>
+
+                <div className="flex gap-2">
+                  <Checkbox id="recommended" name="isRecommended" />
+                  <Label htmlFor="recommended">Recommended</Label>
+                </div>
+
+                <div className="flex gap-2">
+                  <Checkbox id="popular" name="isPopular" />
+                  <Label htmlFor="popular">Popular</Label>
+                </div>
+
               </div>
 
               <Button type="submit" disabled={loading} className="mt-4 w-full bg-blue-600 hover:bg-blue-700 text-white">

@@ -4,10 +4,10 @@ interface CarProps {
   is_favorite: boolean;
   car_fuel: string;
   car_gearbox: string;
-  car_passenger_quantity: string;
+  car_passenger_quantity: number;
   car_rent_price: string;
   car_image: string;
   className?: string;
   old_price?: string;
-  routePath?: string
+  routePath?: string;
 }

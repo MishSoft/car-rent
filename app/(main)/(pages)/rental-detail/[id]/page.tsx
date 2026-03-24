@@ -1,105 +1,140 @@
-import IconButton from "@/app/components/ui/icon-button/icon-button"
-import { Button } from "@/components/ui/button"
-import cars from "@/data/CardData.json"
+"use client";
+
+import { useEffect, useState } from "react";
+import { Car } from "@/app/generated/prisma";
+import { Button } from "@/components/ui/button";
+import IconButton from "@/app/components/ui/icon-button/icon-button";
 import { CiHeart } from "react-icons/ci";
+import { TiStarOutline, TiStarFullOutline } from "react-icons/ti";
+import { useParams } from "next/navigation";
 
-import { TiStarOutline } from "react-icons/ti";
-import { TiStarFullOutline } from "react-icons/ti";
+export default function Page() {
+  const params = useParams();
+  const id = params.id as string;
 
+  const [car, setCar] = useState<Car | null>(null);
+  const [loading, setLoading] = useState(true);
 
-interface PageProps {
-  params: {
-    id:number
+  useEffect(() => {
+    if (!id) return;
+
+    async function fetchCar() {
+      try {
+        const res = await fetch(`/api/cars/${id}`);
+        const data = await res.json();
+
+        if (res.ok) {
+          setCar(data);
+        } else {
+          console.error(data.error);
+        }
+      } catch (err) {
+        console.error("Fetch error:", err);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchCar();
+  }, [id]);
+
+  // 🔄 Loading UI
+  if (loading) {
+    return (
+      <div className="p-10 text-center text-gray-500">
+        Loading car...
+      </div>
+    );
   }
-}
 
-export default function page({params}: PageProps) {
-  const { id } = params
-  const car = cars.cars.find(item => item.id === id)
-
-  if(!car) {
-    return <h2>Car not found</h2>
+  // ❌ Not found
+  if (!car) {
+    return (
+      <div className="p-10 text-center text-red-500">
+        Car not found
+      </div>
+    );
   }
 
   return (
-    <main className='w-full flex flex-col py-6 sm:py-8 lg:py-10 gap-5 px-4 sm:px-6 lg:px-10'>
-      <div>
-        <div className="flex gap-[32px]">
-          {/* ეს არის მანქანის ფოტოებისთვის. */}
-          <div className="max-w-[492px] flex flex-col gap-2 w-full">
-            <div className="w-full bg-blue-400 flex flex-col p-[24px] gap-5 rounded-xl">
-              <h2 className="text-2xl max-w-xs font-semibold text-white">Sports car with the best design and acceleration</h2>
-              <p className="text-sm max-w-3xs text-gray-600">Safety and comfort while driving a
-                futuristic and elegant sports car</p>
-              <img className="object-cover mx-auto" src={car.imageUrl} alt="" />
-            </div>
-            {/* ეს არის მანქანის დამატებითი ფოტოებისთვის. */}
-            <div className="flex items-center justify-between">
-              <img className="w-32" src={car.imageUrl} alt="" />
-              <img className="w-32" src={car.imageUrl} alt="" />
-              <img className="w-32" src={car.imageUrl} alt="" />
-            </div>
-          </div>
-          {/* ეს არის მანქანის ფოტოს გვერდითა ნაწილი სადაც არის აღწერა და ფასი. */}
-          <div className="max-w-[492px] flex flex-col gap-5 p-[24px] w-full rounded-xl bg-(--card-white-color)">
-            {/* ეს არის მანქანის ინფორმაციის ჰედერი */}
-            <div className="flex justify-between items-start gap-10">
-              <div className="flex flex-col gap-1">
-                <h2 className="text-2xl font-semibold">{car.name}</h2>
-                <div className="flex flex-1  items-center gap-3">
-                  {/* აქ იქნება ვარკსვლავები შეფასებისთვის. */}
-                  {/* ******** */}
-                  <div className="flex items-center text-yellow-500">
-                    <TiStarFullOutline />
-                    <TiStarFullOutline />
-                    <TiStarFullOutline />
-                    <TiStarOutline className="text-gray-400"/>
-                    <TiStarOutline className="text-gray-400"/>
-                  </div>
-                  {/* ეს არის შეფასების განხილვის რაოდენობა */}
-                  <span className="text-sm text-gray-400">440+ Reviewers</span>
-                </div>
-              </div>
-              <IconButton icon={<CiHeart />} />
-            </div>
-            {/* ეს არის მანქანის მოდელის აღწერა. */}
-            <p className="text-gray-400">
-              NISMO has become the embodiment of Nissan's outstanding performance, inspired by the most unforgiving proving ground, the "race track".
-            </p>
-            {/* ეს არის მანქანის აღწერა. */}
-            <div className="grid grid-cols-2 w-full gap-2">
-              <h3 className="text-gray-500 font-semibold flex justify-between pr-2">Type Car: <span className="pl-2 text-gray-700 font-semibold">{car.equipment}</span></h3>
-              <h3 className="text-gray-500 font-semibold flex justify-between pr-2">Capacity: <span className="pl-2 text-gray-700 font-semibold">{car.passengerCapacity}</span></h3>
-              <h3 className="text-gray-500 font-semibold flex justify-between pr-2">Streering: <span className="pl-2 text-gray-700 font-semibold">{car.transmission}</span></h3>
-              <h3 className="text-gray-500 font-semibold flex justify-between pr-2">Gasoline: <span className="pl-2 text-gray-700 font-semibold">{car.fuelCapacity}</span></h3>
-            </div>
+    <main className="w-full flex flex-col py-10 gap-5 px-6">
+      <div className="flex gap-8">
 
-            {/* ეს არის ფასის და ქირაობის ღილაკისთვის.  */}
-            <div className="flex  items-center justify-between">
-              {/* ფასისთვის */}
-              <div className="flex flex-col">
-                <h4 className="text-xl font-semibold">
-                  ${car.pricePerDay}/<span className="text-sm text-gray-500">days</span>
-                </h4>
-                <span className="text-sm text-gray-400">${car.oldPrice}</span>
-              </div>
-              {/* ქირაობის ღილაკი */}
-              <Button className="bg-blue-400 px-[32px] py-[16px]">
-                Rent Now
-              </Button>
-            </div>
+        {/* LEFT - IMAGES */}
+        <div className="max-w-[492px] w-full flex flex-col gap-3">
+          <div className="bg-blue-400 p-6 rounded-xl text-white">
+            <h2 className="text-xl font-semibold">
+              Sports car with the best design
+            </h2>
+            <img
+              className="mx-auto object-contain"
+              src={car.imageUrl}
+              alt={car.name}
+            />
+          </div>
+
+          <div className="flex gap-2">
+            <img className="w-32" src={car.imageUrl} alt="" />
+            <img className="w-32" src={car.imageUrl} alt="" />
+            <img className="w-32" src={car.imageUrl} alt="" />
           </div>
         </div>
-        {/* ეს სექცია არის Review სთვის და კომენტარებისთვის.  */}
-        <div></div>
-      </div>
 
+        {/* RIGHT - INFO */}
+        <div className="flex flex-col gap-5 p-6 bg-white rounded-xl w-full">
 
-      {/* ეს არის Recent & recomendation მანქანებისთვის. */}
-      <div>
-        <div></div>
-        <div></div>
+          {/* HEADER */}
+          <div className="flex justify-between">
+            <div>
+              <h2 className="text-2xl font-semibold">{car.name}</h2>
+
+              <div className="flex items-center gap-2 text-yellow-500">
+                <TiStarFullOutline />
+                <TiStarFullOutline />
+                <TiStarFullOutline />
+                <TiStarOutline className="text-gray-400" />
+                <TiStarOutline className="text-gray-400" />
+              </div>
+            </div>
+
+            <IconButton icon={<CiHeart />} />
+          </div>
+
+          {/* DESCRIPTION */}
+          <p className="text-gray-400">
+            High-quality rental car with comfort and performance.
+          </p>
+
+          {/* DETAILS */}
+          <div className="grid grid-cols-2 gap-2 text-sm">
+            <p>
+              Type: <span className="font-semibold">{car.type}</span>
+            </p>
+            <p>
+              Capacity: <span className="font-semibold">{car.passengerLimit}</span>
+            </p>
+            <p>
+              Transmission: <span className="font-semibold">{car.transmission}</span>
+            </p>
+            <p>
+              Fuel: <span className="font-semibold">{car.fuelCapacity}L</span>
+            </p>
+          </div>
+
+          {/* PRICE */}
+          <div className="flex justify-between items-center">
+            <div>
+              <h4 className="text-xl font-semibold">
+                ${car.pricePerDay}/day
+              </h4>
+            </div>
+
+            <Button className="bg-blue-500 text-white hover:bg-blue-600">
+              Rent Now
+            </Button>
+          </div>
+        </div>
       </div>
     </main>
-  )
+  );
 }

@@ -1,0 +1,13 @@
+﻿.next/dev/types/validator.ts(184,31): error TS2344: Type 'typeof import("C:/Users/misho/Desktop/car-rent/app/components/layouts/layout")' does not satisfy the constraint 'LayoutConfig<"/components/layouts">'.
+  Property 'default' is missing in type 'typeof import("C:/Users/misho/Desktop/car-rent/app/components/layouts/layout")' but required in type 'LayoutConfig<"/components/layouts">'.
+.next/dev/types/validator.ts(193,31): error TS2344: Type 'typeof import("C:/Users/misho/Desktop/car-rent/app/components/ui/layout/layout")' does not satisfy the constraint 'LayoutConfig<"/components/ui/layout">'.
+  Property 'default' is missing in type 'typeof import("C:/Users/misho/Desktop/car-rent/app/components/ui/layout/layout")' but required in type 'LayoutConfig<"/components/ui/layout">'.
+tmp-test.ts(14,32): error TS2345: Argument of type 'Pool' is not assignable to parameter of type 'Pool | PoolConfig'.
+  Type 'import("C:/Users/misho/Desktop/car-rent/node_modules/@types/pg/index").Pool' is not assignable to type 'import("C:/Users/misho/Desktop/car-rent/node_modules/@prisma/adapter-pg/node_modules/@types/pg/index").Pool'.
+    The types of 'options.Client' are incompatible between these types.
+      Type '(new () => import("C:/Users/misho/Desktop/car-rent/node_modules/@types/pg/index").ClientBase) | undefined' is not assignable to type '(new () => import("C:/Users/misho/Desktop/car-rent/node_modules/@prisma/adapter-pg/node_modules/@types/pg/index").ClientBase) | undefined'.
+        Type 'new () => import("C:/Users/misho/Desktop/car-rent/node_modules/@types/pg/index").ClientBase' is not assignable to type 'new () => import("C:/Users/misho/Desktop/car-rent/node_modules/@prisma/adapter-pg/node_modules/@types/pg/index").ClientBase'.
+          Construct signature return types 'ClientBase' and 'ClientBase' are incompatible.
+            The types returned by 'connect()' are incompatible between these types.
+              Type 'Promise<ClientBase>' is not assignable to type 'Promise<void>'.
+                Type 'ClientBase' is not assignable to type 'void'.

@@ -18,6 +18,7 @@ type Cars = {
   isAvailable: boolean;
   isPopular?: boolean;
   rentalsCount: number;
+  isFavorite?: boolean;
 };
 
 
@@ -43,7 +44,7 @@ export default function page() {
   [grid-template-columns:repeat(auto-fit,minmax(280px,1fr))]
   gap-5'>
         {cars.slice(0, visibleItems).map(item => (
-          <CarItem routePath={`/rental-detail/${item.id}`} className='w-full' key={item.name} car_name={item.name} car_equipment={item.equipment} is_favorite={false} car_fuel={item.fuelCapacity} car_gearbox={item.transmission} car_passenger_quantity={item.passengerLimit} car_rent_price={item.pricePerDay} car_image={item.imageUrl} />
+          <CarItem routePath={`/rental-detail/${item.id}`} className='w-full' key={item.name} car_id={item.id} car_name={item.name} car_equipment={item.equipment} is_favorite={item.isFavorite || false} car_fuel={item.fuelCapacity} car_gearbox={item.transmission} car_passenger_quantity={item.passengerLimit} car_rent_price={item.pricePerDay} car_image={item.imageUrl} />
         ))}
       </div>
 

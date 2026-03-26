@@ -24,6 +24,7 @@ type Cars = {
   isAvailable: boolean;
   isPopular?: boolean;
   rentalsCount: number;
+  isFavorite?: boolean;
 };
 
 export default function PopularCar() {
@@ -63,9 +64,10 @@ export default function PopularCar() {
           return (
             <CarItem
               key={item.id}
+              car_id={item.id}
               car_name={item.name}
               car_equipment={item.equipment}
-              is_favorite={false}
+              is_favorite={item.isFavorite || false}
               car_fuel={item.fuelCapacity}
               car_gearbox={item.transmission}
               car_passenger_quantity={item.passengerLimit}

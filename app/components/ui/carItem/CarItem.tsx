@@ -1,5 +1,5 @@
-"use client"
 import { FaRegHeart, FaHeart } from "react-icons/fa6";
+import { useState } from "react";
 
 
 import { article, carInfoContainer, carInfoSpan, carRentPriceContainer, carRentPriceDayText, carRentPriceText, defaultFavoriteIcon, favoriteButton, isActiveFavoriteIcon, itemHeader, itemHeaderSpan, itemImage, itemImageContainer, itemTitle, itemTitleContainer, rentalButton } from "./caritem.style";
@@ -21,11 +21,34 @@ export default function CarItem({
   car_image,
   className,
   old_price,
-  routePath
+  routePath,
+  car_id
 }: CarProps) {
 
   const { data: session } = useSession()
   const route = useRouter()
+  const [isFav, setIsFav] = useState(is_favorite);
+
+  const handleFavoriteClick = async () => {
+    if (!session?.user) {
+        route.push('/login');
+        return;
+    }
+    const previousState = isFav;
+    setIsFav(!previousState);
+    try {
+      const res = await fetch('/api/favorites', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ carId: car_id })
+      });
+      if (!res.ok) {
+        setIsFav(previousState);
+      }
+    } catch {
+      setIsFav(previousState);
+    }
+  };
 
   return (
     <article className={article(className)}>
@@ -38,8 +61,8 @@ export default function CarItem({
             {car_equipment}
           </span>
         </div>
-        <Button className={favoriteButton}>
-          {is_favorite ? <FaHeart size={20} className={isActiveFavoriteIcon} /> : <FaRegHeart size={20} className={defaultFavoriteIcon} />}
+        <Button onClick={handleFavoriteClick} className={favoriteButton}>
+          {isFav ? <FaHeart size={20} className={isActiveFavoriteIcon} /> : <FaRegHeart size={20} className={defaultFavoriteIcon} />}
         </Button>
       </div>
 
@@ -48,17 +71,17 @@ export default function CarItem({
       </div>
       <div className={carInfoContainer}>
         <span className={carInfoSpan}>
-          <Image width={24} height={24} src={'/icons/gas-station.svg'} alt="Gas Station icon" />
+          <Image width={24} height={24} src={'icons/gas-station.svg'} alt="Gas Station icon" />
           {car_fuel}L
         </span>
 
         <span className={carInfoSpan}>
-          <Image width={24} height={24} src={'/icons/transmission.svg'} alt="Gas Station icon" />
+          <Image width={24} height={24} src={'icons/transmission.svg'} alt="Gas Station icon" />
           {car_gearbox}
         </span>
 
         <span className={carInfoSpan}>
-          <Image width={24} height={24} src={'/icons/profile-2user.svg'} alt="Gas Station icon" />
+          <Image width={24} height={24} src={'icons/profile-2user.svg'} alt="Gas Station icon" />
           {car_passenger_quantity}
         </span>
       </div>

@@ -46,6 +46,10 @@ export async function POST(req: NextRequest) {
       await prisma.favorite.delete({
         where: { id: existingFavorite.id },
       });
+      await prisma.car.update({
+        where: { id: carId },
+        data: { isAvailable: false },
+      });
       return NextResponse.json({ favorite: false });
     } else {
       await prisma.favorite.create({
@@ -53,6 +57,10 @@ export async function POST(req: NextRequest) {
           userId: session.user.id,
           carId: carId,
         },
+      });
+      await prisma.car.update({
+        where: { id: carId },
+        data: { isAvailable: true },
       });
       return NextResponse.json({ favorite: true });
     }

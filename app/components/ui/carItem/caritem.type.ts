@@ -10,4 +10,5 @@ interface CarProps {
   className?: string;
   old_price?: string;
   routePath?: string;
+  car_id?: string;
 }

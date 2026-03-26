@@ -11,7 +11,9 @@ export default async function middleware(req: NextRequest) {
     pathname === "/" ||
     pathname.startsWith("/cars") ||
     pathname === "/login" ||
-    pathname === "/register";
+    pathname === "/register" ||
+    pathname.startsWith("/uploads") ||
+    pathname.startsWith("/icons");
 
   if (isPublic) return NextResponse.next();
 

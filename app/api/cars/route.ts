@@ -42,8 +42,29 @@ export async function GET(req: NextRequest) {
       prisma.car.count({ where }),
     ]);
 
+    const session = await getServerSession(authOptions);
+    let carsWithFavorites = cars as any[];
+
+    if (session?.user?.id) {
+       const userFavorites = await prisma.favorite.findMany({
+         where: { userId: session.user.id },
+         select: { carId: true }
+       });
+       const favoriteCarIds = new Set(userFavorites.map(f => f.carId));
+       
+       carsWithFavorites = cars.map(car => ({
+         ...car,
+         isFavorite: favoriteCarIds.has(car.id)
+       }));
+    } else {
+       carsWithFavorites = cars.map(car => ({
+         ...car,
+         isFavorite: false
+       }));
+    }
+
     return NextResponse.json({
-      cars,
+      cars: carsWithFavorites,
       pagination: {
         total,
         page,

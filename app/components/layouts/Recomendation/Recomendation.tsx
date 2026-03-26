@@ -54,7 +54,7 @@ export default function Recomendation() {
       <div className={recomendationItemContainer}>
         {
           carData.slice(0, visibleItems).map((item, index) => (
-            <CarItem key={index} old_price={item.oldPrice} car_id={item.id} car_name={item.name} car_equipment={item.equipment} is_favorite={item.isFavorite || false} car_fuel={item.fuelCapacity} car_image={item.imageUrl} car_gearbox={item.transmission} car_passenger_quantity={item.passengerLimit} car_rent_price={item.pricePerDay} />
+            <CarItem routePath={`/rental-detail/${item.id}`} key={index} old_price={item.oldPrice} car_id={item.id} car_name={item.name} car_equipment={item.equipment} is_favorite={item.isFavorite || false} car_fuel={item.fuelCapacity} car_image={item.imageUrl} car_gearbox={item.transmission} car_passenger_quantity={item.passengerLimit} car_rent_price={item.pricePerDay} />
           ))
         }
       </div>

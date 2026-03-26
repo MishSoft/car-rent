@@ -71,17 +71,17 @@ export default function CarItem({
       </div>
       <div className={carInfoContainer}>
         <span className={carInfoSpan}>
-          <Image width={24} height={24} src={'icons/gas-station.svg'} alt="Gas Station icon" />
+          <Image width={24} height={24} src={'/icons/gas-station.svg'} alt="Gas Station icon" />
           {car_fuel}L
         </span>
 
         <span className={carInfoSpan}>
-          <Image width={24} height={24} src={'icons/transmission.svg'} alt="Gas Station icon" />
+          <Image width={24} height={24} src={'/icons/transmission.svg'} alt="Gas Station icon" />
           {car_gearbox}
         </span>
 
         <span className={carInfoSpan}>
-          <Image width={24} height={24} src={'icons/profile-2user.svg'} alt="Gas Station icon" />
+          <Image width={24} height={24} src={'/icons/profile-2user.svg'} alt="Gas Station icon" />
           {car_passenger_quantity}
         </span>
       </div>

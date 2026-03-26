@@ -63,6 +63,7 @@ export default function PopularCar() {
         {carData.map((item) => {
           return (
             <CarItem
+              routePath={`/rental-detail/${item.id}`}
               key={item.id}
               car_id={item.id}
               car_name={item.name}

@@ -7,6 +7,10 @@ import IconButton from "@/app/components/ui/icon-button/icon-button";
 import { CiHeart } from "react-icons/ci";
 import { TiStarOutline, TiStarFullOutline } from "react-icons/ti";
 import { useParams } from "next/navigation";
+import Review from "@/app/(main)/components/layout/Reviews/Review";
+import { FaAngleDown } from "react-icons/fa";
+import Recomendation from "@/app/components/layouts/Recomendation/Recomendation";
+
 
 export default function Page() {
   const params = useParams();
@@ -57,31 +61,28 @@ export default function Page() {
   }
 
   return (
-    <main className="w-full flex flex-col py-10 gap-5 px-6">
+    <main className="w-full flex flex-col py-2 gap-5 px-6">
       <div className="flex gap-8">
 
         {/* LEFT - IMAGES */}
         <div className="max-w-[492px] w-full flex flex-col gap-3">
-          <div className="bg-blue-400 p-6 rounded-xl text-white">
-            <h2 className="text-xl font-semibold">
-              Sports car with the best design
-            </h2>
+          <div className="bg-blue-400 p-10 rounded-xl text-white">
             <img
-              className="mx-auto object-contain"
+              className="w-full h-50 object-contain mx-auto"
               src={car.imageUrl}
               alt={car.name}
             />
           </div>
 
-          <div className="flex gap-2">
-            <img className="w-32" src={car.imageUrl} alt="" />
-            <img className="w-32" src={car.imageUrl} alt="" />
-            <img className="w-32" src={car.imageUrl} alt="" />
+          <div className="flex gap-2 items-center justify-between">
+            <img className="w-full h-25 object-cover border-2 border-blue-400 rounded-xl" src={car.imageUrl} alt="" />
+            <img className="w-full h-25 object-cover border-2  rounded-xl" src={car.imageUrl} alt="" />
+            <img className="w-full h-25 object-cover border-2  rounded-xl" src={car.imageUrl} alt="" />
           </div>
         </div>
 
         {/* RIGHT - INFO */}
-        <div className="flex flex-col gap-5 p-6 bg-white rounded-xl w-full">
+        <div className="flex flex-col justify-between gap-5 p-6 bg-white rounded-xl w-full">
 
           {/* HEADER */}
           <div className="flex justify-between">
@@ -106,17 +107,17 @@ export default function Page() {
           </p>
 
           {/* DETAILS */}
-          <div className="grid grid-cols-2 gap-2 text-sm">
-            <p>
+          <div className="grid grid-cols-2 gap-5 text-sm">
+            <p className="flex items-center  justify-between">
               Type: <span className="font-semibold">{car.type}</span>
             </p>
-            <p>
+            <p className="flex items-center  justify-between">
               Capacity: <span className="font-semibold">{car.passengerLimit}</span>
             </p>
-            <p>
+            <p className="flex items-center  justify-between">
               Transmission: <span className="font-semibold">{car.transmission}</span>
             </p>
-            <p>
+            <p className="flex items-center  justify-between">
               Fuel: <span className="font-semibold">{car.fuelCapacity}L</span>
             </p>
           </div>
@@ -124,8 +125,11 @@ export default function Page() {
           {/* PRICE */}
           <div className="flex justify-between items-center">
             <div>
-              <h4 className="text-xl font-semibold">
-                ${car.pricePerDay}/day
+              <h4 className="text-xl flex flex-col font-semibold">
+                ${car.pricePerDay}.00/day
+                <span className="text-gray-400 text-sm line-through">
+                  $80.00
+                </span>
               </h4>
             </div>
 
@@ -135,6 +139,18 @@ export default function Page() {
           </div>
         </div>
       </div>
+
+      {/* Reviews */}
+      <div className="bg-white flex flex-col  p-5 rounded-xl">
+        <Review />
+
+        <Button className="text-gray-500 flex items-center gap-2 mt-5 cursor-pointer">
+          Show All
+          <FaAngleDown size={20} />
+        </Button>
+      </div>
+
+      <Recomendation />
     </main>
   );
 }

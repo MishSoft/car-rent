@@ -1,7 +1,8 @@
 import { DatePicker } from "../datePicker/DatePicker";
 import { LocationPicker } from "../locationPicker/LocationPicker";
+import PickIcon from "../pick-icon/PickIcon";
 import { DatePickerTime } from "../timePicker/TimePicker";
-import { selectorForm, selecotrTitleContainer, selectorRadio, selectorRadioSpan, selectorTitle, selectorPickerContainer, selectorPickerItemContainer, selectorPickerItemInner } from "./selector.style";
+import { selectorForm, selecotrTitleContainer, selectorTitle, selectorPickerContainer, selectorPickerItemContainer, selectorPickerItemInner } from "./selector.style";
 import { SelectorProps } from "./selector.types";
 
 
@@ -9,10 +10,7 @@ export default function SelectField({ title, type }: SelectorProps & {type: 'pic
   return (
     <form className={selectorForm}>
       <div className={selecotrTitleContainer}>
-        <div className={selectorRadio}>
-          <span className={selectorRadioSpan}>
-          </span>
-        </div>
+        <PickIcon />
         <h2 className={selectorTitle}>{title}</h2>
       </div>
       <div className={selectorPickerContainer}>

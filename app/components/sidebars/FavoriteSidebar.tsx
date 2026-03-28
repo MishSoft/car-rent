@@ -23,9 +23,12 @@ interface Car {
 import Link from 'next/link';
 import { Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useFavoritesStore } from "@/store/useFavoritesStore";
 
 export default function FavoriteSidebar() {
-  const [favorites, setFavorites] = useState<Car[]>([]);
+  const favorites = useFavoritesStore((state) => state.favorites);
+  const setFavorites = useFavoritesStore((state) => state.setFavorites);
+  const removeFavorite = useFavoritesStore((state) => state.removeFavorite);
   const [loading, setLoading] = useState(false);
 
   async function fetchFavorites() {
@@ -44,16 +47,14 @@ export default function FavoriteSidebar() {
   }
 
   const handleRemoveFavorite = async (carId: string) => {
+    removeFavorite(carId);
     try {
       // Toggle favorite back, which removes it and sets isAvailable to false
-      const res = await fetch('/api/favorites', {
+      await fetch('/api/favorites', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ carId })
       });
-      if (res.ok) {
-        setFavorites((prev) => prev.filter(c => c.id !== carId));
-      }
     } catch {
       // ignore
     }
@@ -64,9 +65,9 @@ export default function FavoriteSidebar() {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <IconButton 
-          className={icon} 
-          icon={<MdFavorite size={24} />} 
+        <IconButton
+          className={icon}
+          icon={<MdFavorite size={24} />}
           onClick={fetchFavorites}
         />
       </SheetTrigger>
@@ -94,9 +95,9 @@ export default function FavoriteSidebar() {
                   </div>
                 </div>
                 <div className="flex justify-between items-center mt-2 border-t pt-2 gap-2">
-                  <Button 
-                    variant="ghost" 
-                    size="sm" 
+                  <Button
+                    variant="ghost"
+                    size="sm"
                     onClick={() => handleRemoveFavorite(car.id)}
                     className="text-red-500 hover:text-red-600 hover:bg-red-50 flex-1 px-2 h-8"
                   >

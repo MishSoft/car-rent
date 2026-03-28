@@ -6,6 +6,7 @@ import CarItem from '../../ui/carItem/CarItem'
 import cars from "@/data/CardData.json"
 import ShowMoreButton from '../ShowMoreButton/ShowMoreButton'
 import { Car } from '@/app/generated/prisma'
+import { useDataFetchStore } from "@/store/useDataFetchStore";
 
 type Cars = {
   id: string;
@@ -25,28 +26,25 @@ type Cars = {
 
 export default function Recomendation() {
   const [visibleItems, setVisibleItems] = useState(8)
-  const [carData, setCarData] = useState<Cars[]>([]);
+  const carsContext = useDataFetchStore((state) => state.cars);
+  const fetchCarsContext = useDataFetchStore((state) => state.fetchCars);
 
   useEffect(() => {
-    async function fetchCars() {
-      const res = await fetch("/api/cars");
-      const data = await res.json();
-
-      const recommendedCars = data.cars
-        .filter((car: Car) => car.isRecommended || car.rentalsCount > 0)
-        .sort((a: Car, b: Car) => {
-          if (a.isRecommended && !b.isRecommended) return -1;
-          if (!a.isRecommended && b.isRecommended) return 1;
-          return b.rentalsCount - a.rentalsCount;
-        })
-        .slice(0, 10);
-
-
-      setCarData(recommendedCars);
+    if (carsContext.length === 0) {
+      fetchCarsContext();
     }
+  }, [carsContext.length, fetchCarsContext]);
 
-    fetchCars();
-  }, []);
+  const carData = React.useMemo(() => {
+    return carsContext
+      .filter((car) => car.isRecommended || car.rentalsCount > 0)
+      .sort((a, b) => {
+        if (a.isRecommended && !b.isRecommended) return -1;
+        if (!a.isRecommended && b.isRecommended) return 1;
+        return (b.rentalsCount || 0) - (a.rentalsCount || 0);
+      })
+      .slice(0, 10);
+  }, [carsContext]);
 
   return (
     <section className="py-10">
@@ -54,7 +52,7 @@ export default function Recomendation() {
       <div className={recomendationItemContainer}>
         {
           carData.slice(0, visibleItems).map((item, index) => (
-            <CarItem routePath={`/rental-detail/${item.id}`} key={index} old_price={item.oldPrice} car_id={item.id} car_name={item.name} car_equipment={item.equipment} is_favorite={item.isFavorite || false} car_fuel={item.fuelCapacity} car_image={item.imageUrl} car_gearbox={item.transmission} car_passenger_quantity={item.passengerLimit} car_rent_price={item.pricePerDay} />
+            <CarItem routePath={`/rental-detail/${item.id}`} key={index} old_price={item.oldPrice as string} car_id={item.id} car_name={item.name} car_equipment={item.equipment} is_favorite={item.isFavorite || false} car_fuel={item.fuelCapacity} car_image={item.imageUrl} car_gearbox={item.transmission} car_passenger_quantity={item.passengerLimit} car_rent_price={item.pricePerDay as string} />
           ))
         }
       </div>

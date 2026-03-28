@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useFavoritesStore } from "@/store/useFavoritesStore";
 
 
 export default function CarItem({
@@ -27,15 +28,43 @@ export default function CarItem({
 
   const { data: session } = useSession()
   const route = useRouter()
-  const [isFav, setIsFav] = useState(is_favorite);
+  const [isFavLocal, setIsFavLocal] = useState(is_favorite);
+
+  const favorites = useFavoritesStore((state) => state.favorites);
+  const isLoaded = useFavoritesStore((state) => state.isLoaded);
+  const addFavorite = useFavoritesStore((state) => state.addFavorite);
+  const removeFavorite = useFavoritesStore((state) => state.removeFavorite);
+
+  // Use global sync if initialized, otherwise local state
+  const isFav = isLoaded ? favorites.some((c) => c.id === car_id) : isFavLocal;
 
   const handleFavoriteClick = async () => {
     if (!session?.user) {
         route.push('/login');
         return;
     }
+    
     const previousState = isFav;
-    setIsFav(!previousState);
+    setIsFavLocal(!previousState);
+    
+    if (!previousState && car_id) {
+       addFavorite({
+         id: car_id,
+         name: car_name || "",
+         type: car_equipment || "",
+         equipment: car_equipment,
+         fuelCapacity: car_fuel,
+         transmission: car_gearbox,
+         passengerLimit: car_passenger_quantity,
+         pricePerDay: car_rent_price,
+         oldPrice: old_price,
+         imageUrl: car_image || "",
+         isAvailable: true
+       });
+    } else if (car_id) {
+       removeFavorite(car_id);
+    }
+
     try {
       const res = await fetch('/api/favorites', {
         method: 'POST',
@@ -43,10 +72,14 @@ export default function CarItem({
         body: JSON.stringify({ carId: car_id })
       });
       if (!res.ok) {
-        setIsFav(previousState);
+        setIsFavLocal(previousState);
+        if (previousState && car_id) addFavorite({ id: car_id, name: car_name || "", type: car_equipment || "", imageUrl: car_image || "", pricePerDay: car_rent_price, isAvailable: true });
+        else if (car_id) removeFavorite(car_id);
       }
     } catch {
-      setIsFav(previousState);
+      setIsFavLocal(previousState);
+      if (previousState && car_id) addFavorite({ id: car_id, name: car_name || "", type: car_equipment || "", imageUrl: car_image || "", pricePerDay: car_rent_price, isAvailable: true });
+      else if (car_id) removeFavorite(car_id);
     }
   };
 

@@ -62,10 +62,10 @@ export default function Page() {
 
   return (
     <main className="w-full flex flex-col py-2 gap-5 px-6">
-      <div className="flex gap-8">
+      <div className="flex gap-8  flex-col sm:flex-row">
 
         {/* LEFT - IMAGES */}
-        <div className="max-w-[492px] w-full flex flex-col gap-3">
+        <div className="max-w-123 w-full flex flex-col gap-3">
           <div className="bg-blue-400 p-10 rounded-xl text-white">
             <img
               className="w-full h-50 object-contain mx-auto"
@@ -75,9 +75,9 @@ export default function Page() {
           </div>
 
           <div className="flex gap-2 items-center justify-between">
-            <img className="w-full h-25 object-cover border-2 border-blue-400 rounded-xl" src={car.imageUrl} alt="" />
-            <img className="w-full h-25 object-cover border-2  rounded-xl" src={car.imageUrl} alt="" />
-            <img className="w-full h-25 object-cover border-2  rounded-xl" src={car.imageUrl} alt="" />
+            <img className="w-full h-20 md:h-25 object-contain sm:object-cover border-2 border-blue-400 rounded-xl" src={car.imageUrl} alt="" />
+            <img className="w-full h-20 md:h-25 object-contain sm:object-cover border-2  rounded-xl" src={car.imageUrl} alt="" />
+            <img className="w-full h-20 md:h-25 object-contain sm:object-cover border-2  rounded-xl" src={car.imageUrl} alt="" />
           </div>
         </div>
 

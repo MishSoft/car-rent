@@ -15,9 +15,12 @@ import { useSession } from "next-auth/react"
 import { Button } from "@/components/ui/button";
 import FavoriteSidebar from "../../sidebars/FavoriteSidebar";
 import NotificationSidebar from "../../sidebars/NotificationSidebar";
+import { usePathname } from "next/navigation";
 
 export default function Header() {
   const { data: session } = useSession()
+  const pathname = usePathname()
+
   return (
     <header className={container(headerContainer)}>
       <div
@@ -29,24 +32,29 @@ export default function Header() {
           </h1>
         </Link>
 
-        <div className={searchInputContainer}>
-          <div className={inputContainer}>
-            <div className={inputWrapper}>
-              <CiSearch size={25} className={iconColor} />
+        {
+          pathname !== "/payment" && (
+            <div className={searchInputContainer}>
+              <div className={inputContainer}>
+                <div className={inputWrapper}>
+                  <CiSearch size={25} className={iconColor} />
 
-              <Input
-                type="text"
-                className={inputStyle}
-                placeholder="Search something here"
-                aria-label="search"
-              />
+                  <Input
+                    type="text"
+                    className={inputStyle}
+                    placeholder="Search something here"
+                    aria-label="search"
+                  />
+                </div>
+
+                <Link href={'/search'} className={settingButton}>
+                  <VscSettings size={20} className={iconColor} />
+                </Link>
+              </div>
             </div>
+          )
+        }
 
-            <Link href={'/search'} className={settingButton}>
-              <VscSettings size={20} className={iconColor} />
-            </Link>
-          </div>
-        </div>
 
         <div className={iconsWrapper}>
           <div className={iconContainer}>

@@ -1,7 +1,0 @@
-feat: implement car management, role-based access, and header sidebars
-
-- Added car upload functionality with server-side processing and local image storage
-- Implemented role-based redirection to strictly separate admin and client pathways
-- Added functional Favorites and Notifications sidebars using Radix-based Sheet components
-- Integrated NextAuth sign-out in the Admin dashboard
-- Resolved hydration mismatch errors caused by nested interactive elements in the Header

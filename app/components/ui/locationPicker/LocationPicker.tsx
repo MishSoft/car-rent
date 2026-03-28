@@ -24,7 +24,6 @@ interface CitiesProps {
 }
 
 export function LocationPicker({type}:{type: "pickup" | "dropoff"}) {
-  // const [position, setPosition] = React.useState("Select your city")
   const location = useBookingStore((state) => state[type].location)
   const setField = useBookingStore((state) => state.setField)
 

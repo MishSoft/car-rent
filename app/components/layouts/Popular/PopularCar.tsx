@@ -8,8 +8,9 @@ import {
   rentalCarsSectionWrapper,
   viewAllItemsButton,
 } from "./popularCar.style";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { Car } from "@/app/generated/prisma";
+import { useDataFetchStore } from "@/store/useDataFetchStore";
 
 type Cars = {
   id: string;
@@ -28,28 +29,25 @@ type Cars = {
 };
 
 export default function PopularCar() {
-  const [carData, setCarData] = useState<Cars[]>([]);
+  const carsContext = useDataFetchStore((state) => state.cars);
+  const fetchCarsContext = useDataFetchStore((state) => state.fetchCars);
 
   useEffect(() => {
-    async function fetchCars() {
-      const res = await fetch("/api/cars");
-      const data = await res.json();
-
-      const popularCars = data.cars
-        .filter((car: Car) => car.isPopular || car.rentalsCount > 0)
-        .sort((a: Car, b: Car) => {
-          if (a.isPopular && !b.isPopular) return -1;
-          if (!a.isPopular && b.isPopular) return 1;
-          return b.rentalsCount - a.rentalsCount;
-        })
-        .slice(0, 10);
-
-
-      setCarData(popularCars);
+    if (carsContext.length === 0) {
+      fetchCarsContext();
     }
+  }, [carsContext.length, fetchCarsContext]);
 
-    fetchCars();
-  }, []);
+  const carData = useMemo(() => {
+    return carsContext
+      .filter((car) => car.isPopular || car.rentalsCount > 0)
+      .sort((a, b) => {
+        if (a.isPopular && !b.isPopular) return -1;
+        if (!a.isPopular && b.isPopular) return 1;
+        return (b.rentalsCount || 0) - (a.rentalsCount || 0);
+      })
+      .slice(0, 10);
+  }, [carsContext]);
 
   return (
     <section className="my-10">
@@ -72,7 +70,7 @@ export default function PopularCar() {
               car_fuel={item.fuelCapacity}
               car_gearbox={item.transmission}
               car_passenger_quantity={item.passengerLimit}
-              car_rent_price={item.pricePerDay}
+              car_rent_price={item.pricePerDay as string}
               car_image={item.imageUrl}
             />
           )

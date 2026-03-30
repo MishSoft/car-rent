@@ -10,7 +10,7 @@ import { useParams } from "next/navigation";
 import Review from "@/app/(main)/components/layout/Reviews/Review";
 import { FaAngleDown } from "react-icons/fa";
 import Recomendation from "@/app/components/layouts/Recomendation/Recomendation";
-
+import Link from "next/link";
 
 export default function Page() {
   const params = useParams();
@@ -132,10 +132,12 @@ export default function Page() {
                 </span>
               </h4>
             </div>
-
-            <Button className="bg-blue-500 text-white hover:bg-blue-600">
-              Rent Now
-            </Button>
+            
+            <Link href={`/payment?carId=${car.id}`}>
+              <Button className="bg-blue-500 text-white hover:bg-blue-600">
+                Rent Now
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

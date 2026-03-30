@@ -1,7 +1,11 @@
-import { Input } from "@/components/ui/input";
+"use client";
 
+import { Input } from "@/components/ui/input";
+import { usePaymentStore } from "@/store/usePaymentStore";
 
 export default function Billing() {
+  const { payment, setField } = usePaymentStore();
+
   return (
     <div className="flex flex-col">
       <fieldset className="flex flex-col gap-10">
@@ -15,19 +19,19 @@ export default function Billing() {
         <div className="grid grid-cols-2 gap-[24px]">
           <div className="flex flex-col gap-[16px]">
             <label className="font-semibold" htmlFor="name">Name</label>
-            <Input className="px-[32px] py-6 bg-[#F6F7F9] rounded-xl" type="text" placeholder="Your name" value="" />
+            <Input className="px-[32px] py-6 bg-[#F6F7F9] rounded-xl" type="text" placeholder="Your name" value={payment.userName} onChange={(e) => setField("userName", e.target.value)} />
           </div>
           <div className="flex flex-col gap-[16px]">
             <label className="font-semibold" htmlFor="phone">Phone Number</label>
-            <Input className="px-[32px] py-6 bg-[#F6F7F9] rounded-xl" type="tel" placeholder="Phone number" value="" />
+            <Input className="px-[32px] py-6 bg-[#F6F7F9] rounded-xl" type="tel" placeholder="Phone number" value={payment.userPhone} onChange={(e) => setField("userPhone", e.target.value)} />
           </div>
           <div className="flex flex-col gap-[16px]">
             <label className="font-semibold" htmlFor="address">Address</label>
-            <Input className="px-[32px] py-6 bg-[#F6F7F9] rounded-xl" type="text" placeholder="Address" value="" />
+            <Input className="px-[32px] py-6 bg-[#F6F7F9] rounded-xl" type="text" placeholder="Address" value={payment.userAddress} onChange={(e) => setField("userAddress", e.target.value)} />
           </div>
           <div className="flex flex-col gap-[16px]">
             <label className="font-semibold" htmlFor="town">Town / City</label>
-            <Input className="px-[32px] py-6 bg-[#F6F7F9] rounded-xl" type="text" placeholder="Town City" value="" />
+            <Input className="px-[32px] py-6 bg-[#F6F7F9] rounded-xl" type="text" placeholder="Town City" value={payment.userTown} onChange={(e) => setField("userTown", e.target.value)} />
           </div>
         </div>
       </fieldset>

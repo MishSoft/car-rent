@@ -1,7 +1,7 @@
 export const headerContainer =
   "bg-(--card-white-color) border-b border-(--header-border) ";
 
-export const headerWrapper = "flex items-center justify-between gap-16";
+export const headerWrapper = "grid grid-cols-[auto_1fr_auto] gap-16";
 
 export const logoText =
   "uppercase text-[24px] md:text-[32px] text-(--logo-color) font-bold";

@@ -11,6 +11,7 @@ import {
 import { useEffect, useState, useMemo } from "react";
 import { Car } from "@/app/generated/prisma";
 import { useDataFetchStore } from "@/store/useDataFetchStore";
+import CarItemLoading from "../../ui/carItem/loading";
 
 type Cars = {
   id: string;
@@ -31,6 +32,7 @@ type Cars = {
 export default function PopularCar() {
   const carsContext = useDataFetchStore((state) => state.cars);
   const fetchCarsContext = useDataFetchStore((state) => state.fetchCars);
+  const isLoading = useDataFetchStore((state) => state.isLoading);
 
   useEffect(() => {
     if (carsContext.length === 0) {
@@ -58,23 +60,27 @@ export default function PopularCar() {
 
       <div className={itemsContainer}>
 
-        {carData.map((item) => {
-          return (
-            <CarItem
-              routePath={`/rental-detail/${item.id}`}
-              key={item.id}
-              car_id={item.id}
-              car_name={item.name}
-              car_equipment={item.equipment}
-              is_favorite={item.isFavorite || false}
-              car_fuel={item.fuelCapacity}
-              car_gearbox={item.transmission}
-              car_passenger_quantity={item.passengerLimit}
-              car_rent_price={item.pricePerDay as string}
-              car_image={item.imageUrl}
-            />
-          )
-        })}
+        {isLoading ? (
+          Array.from({ length: 4 }).map((_, index) => <CarItemLoading key={index} />)
+        ) : (
+          carData.map((item) => {
+            return (
+              <CarItem
+                routePath={`/rental-detail/${item.id}`}
+                key={item.id}
+                car_id={item.id}
+                car_name={item.name}
+                car_equipment={item.equipment}
+                is_favorite={item.isFavorite || false}
+                car_fuel={item.fuelCapacity}
+                car_gearbox={item.transmission}
+                car_passenger_quantity={item.passengerLimit}
+                car_rent_price={item.pricePerDay as string}
+                car_image={item.imageUrl}
+              />
+            )
+          })
+        )}
       </div>
     </section>
   );

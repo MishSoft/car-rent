@@ -9,6 +9,7 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useFavoritesStore } from "@/store/useFavoritesStore";
+import CarItemLoading from "./loading";
 
 
 export default function CarItem({
@@ -26,7 +27,7 @@ export default function CarItem({
   car_id
 }: CarProps) {
 
-  const { data: session } = useSession()
+  const { data: session, status } = useSession()
   const route = useRouter()
   const [isFavLocal, setIsFavLocal] = useState(is_favorite);
 
@@ -34,6 +35,8 @@ export default function CarItem({
   const isLoaded = useFavoritesStore((state) => state.isLoaded);
   const addFavorite = useFavoritesStore((state) => state.addFavorite);
   const removeFavorite = useFavoritesStore((state) => state.removeFavorite);
+
+
 
   // Use global sync if initialized, otherwise local state
   const isFav = isLoaded ? favorites.some((c) => c.id === car_id) : isFavLocal;
@@ -43,10 +46,10 @@ export default function CarItem({
         route.push('/login');
         return;
     }
-    
+
     const previousState = isFav;
     setIsFavLocal(!previousState);
-    
+
     if (!previousState && car_id) {
        addFavorite({
          id: car_id,
@@ -82,6 +85,10 @@ export default function CarItem({
       else if (car_id) removeFavorite(car_id);
     }
   };
+
+  if (status === "loading") {
+    return <CarItemLoading />
+  }
 
   return (
     <article className={article(className)}>
@@ -142,5 +149,6 @@ export default function CarItem({
         }
       </div>
     </article>
+
   )
 }

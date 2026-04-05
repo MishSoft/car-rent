@@ -16,7 +16,10 @@ import {
   CreditCardIcon,
   LogOutIcon,
 } from "lucide-react"
+
+
 import { signOut } from "next-auth/react"
+import { userAvatar, userAvatarContent, userAvatarItem, userAvatarTrigger } from "./userAvatar.style"
 
 export default function UserAvatar() {
 
@@ -26,33 +29,33 @@ export default function UserAvatar() {
     })
   }
   return (
-    <div className='relative w-11  h-11 overflow-hidden rounded-full cursor-pointer inline-flex items-center justify-center p-2 transition-colors'>
+    <div className={userAvatar}>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="ghost" size="icon" className="rounded-full cursor-pointer">
+          <Button variant="ghost" size="icon" className={userAvatarTrigger}>
             <Avatar>
               <AvatarImage src="/avatar/user.png" alt="user-avatar" />
               <AvatarFallback>LR</AvatarFallback>
             </Avatar>
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" className=" border rounded-xl shadow-xl p-5">
+        <DropdownMenuContent align="end" className={userAvatarContent}>
           <DropdownMenuGroup>
-            <DropdownMenuItem className="cursor-pointer hover:bg-gray-300/20">
+            <DropdownMenuItem className={userAvatarItem}>
               <BadgeCheckIcon />
               Account
             </DropdownMenuItem>
-            <DropdownMenuItem className="cursor-pointer hover:bg-gray-300/20">
+            <DropdownMenuItem className={userAvatarItem}>
               <CreditCardIcon />
               Billing
             </DropdownMenuItem>
-            <DropdownMenuItem className="cursor-pointer hover:bg-gray-300/20">
+            <DropdownMenuItem className={userAvatarItem}>
               <BellIcon />
               Notifications
             </DropdownMenuItem>
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={handleLogout} className="cursor-pointer hover:bg-gray-300/20">
+          <DropdownMenuItem onClick={handleLogout} className={userAvatarItem}>
             <LogOutIcon />
             Sign Out
           </DropdownMenuItem>

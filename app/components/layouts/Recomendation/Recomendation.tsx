@@ -7,6 +7,7 @@ import cars from "@/data/CardData.json"
 import ShowMoreButton from '../ShowMoreButton/ShowMoreButton'
 import { Car } from '@/app/generated/prisma'
 import { useDataFetchStore } from "@/store/useDataFetchStore";
+import CarItemLoading from '../../ui/carItem/loading';
 
 type Cars = {
   id: string;
@@ -28,6 +29,7 @@ export default function Recomendation() {
   const [visibleItems, setVisibleItems] = useState(8)
   const carsContext = useDataFetchStore((state) => state.cars);
   const fetchCarsContext = useDataFetchStore((state) => state.fetchCars);
+  const isLoading = useDataFetchStore((state) => state.isLoading);
 
   useEffect(() => {
     if (carsContext.length === 0) {
@@ -50,8 +52,9 @@ export default function Recomendation() {
     <section className="py-10">
       <h2 className={recomendationTitle}>Recomendation Car</h2>
       <div className={recomendationItemContainer}>
-        {
-          carData.slice(0, visibleItems).map((item, index) => (
+        {isLoading
+          ? Array.from({ length: 8 }).map((_, index) => <CarItemLoading key={index} />)
+          : carData.slice(0, visibleItems).map((item, index) => (
             <CarItem routePath={`/rental-detail/${item.id}`} key={index} old_price={item.oldPrice as string} car_id={item.id} car_name={item.name} car_equipment={item.equipment} is_favorite={item.isFavorite || false} car_fuel={item.fuelCapacity} car_image={item.imageUrl} car_gearbox={item.transmission} car_passenger_quantity={item.passengerLimit} car_rent_price={item.pricePerDay as string} />
           ))
         }

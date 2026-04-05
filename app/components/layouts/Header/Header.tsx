@@ -16,10 +16,15 @@ import { Button } from "@/components/ui/button";
 import FavoriteSidebar from "../../sidebars/FavoriteSidebar";
 import NotificationSidebar from "../../sidebars/NotificationSidebar";
 import { usePathname } from "next/navigation";
+import HeaderLoading from "./loading";
 
 export default function Header() {
-  const { data: session } = useSession()
+  const { data: session, status } = useSession()
   const pathname = usePathname()
+
+  if (status === "loading") {
+    return <HeaderLoading />
+  }
 
   return (
     <header className={container(headerContainer)}>
@@ -82,5 +87,6 @@ export default function Header() {
         </div>
       </div>
     </header>
+
   );
 }

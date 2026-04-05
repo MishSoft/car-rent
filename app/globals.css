@@ -20,7 +20,8 @@
   --breakpoint-md: 941px;
   --breakpoint-lg: 1100px;
   --card-background: #54A6FF;
-
+  --loading-color: #85A8F8;
+  --loading-secondary-color: #EFF3FD;
 }
 
 body {

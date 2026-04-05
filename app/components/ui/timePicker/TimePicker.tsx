@@ -12,16 +12,9 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { FaAngleDown } from "react-icons/fa6"
 import { pickerButton, pickerSpan, pickerIcon, pickerDropDown } from "../layout/layout"
-import { timePickerGroup, timePickerLabel, timePickerInput } from "./timePicker.style"
+import { timePickerGroup, timePickerLabel, timePickerInput, timePickerSeparator } from "./timePicker.style"
 import { useBookingStore } from "@/store/useLocationStore"
 
-type Period = "AM" | "PM";
-
-interface TimeData {
-  hours: string;
-  minutes: string;
-  period: Period;
-}
 
 export function DatePickerTime({ type }: { type: 'pickup' | 'dropoff' }) {
 
@@ -62,7 +55,7 @@ export function DatePickerTime({ type }: { type: 'pickup' | 'dropoff' }) {
           />
         </DropdownMenuGroup>
 
-        <div className="flex items-end pb-2 font-bold">:</div>
+        <div className={timePickerSeparator}>:</div>
 
         <DropdownMenuGroup className={timePickerGroup}>
           <DropdownMenuLabel className={timePickerLabel}>Minutes</DropdownMenuLabel>

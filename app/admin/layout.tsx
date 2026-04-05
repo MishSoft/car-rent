@@ -2,6 +2,7 @@ import React from 'react'
 import { getServerSession } from "next-auth/next"
 import { authOptions } from "@/app/api/auth/[...nextauth]/route"
 import { redirect } from "next/navigation"
+import SideBar from "./components/layout/sidebar/SideBar"
 
 export default async function layout({children}: {children: React.ReactNode}) {
   const session = await getServerSession(authOptions);
@@ -11,8 +12,8 @@ export default async function layout({children}: {children: React.ReactNode}) {
   }
 
   return (
-    <div>
+    <SideBar>
       {children}
-    </div>
+    </SideBar>
   )
 }

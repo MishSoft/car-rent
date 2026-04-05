@@ -1,12 +1,25 @@
+"use client"
+import { useEffect, useState } from "react";
 import { DatePicker } from "../datePicker/DatePicker";
 import { LocationPicker } from "../locationPicker/LocationPicker";
 import PickIcon from "../pick-icon/PickIcon";
 import { DatePickerTime } from "../timePicker/TimePicker";
-import { selectorForm, selecotrTitleContainer, selectorTitle, selectorPickerContainer, selectorPickerItemContainer, selectorPickerItemInner } from "./selector.style";
+import SelectorLoading from "./loading";
+import { selectorForm, selecotrTitleContainer, selectorTitle, selectorPickerContainer, selectorPickerItemContainer, selectorPickerItemInner, selectorPickerItemInnerContainer } from "./selector.style";
 import { SelectorProps } from "./selector.types";
 
 
 export default function SelectField({ title, type }: SelectorProps & {type: 'pickup' | 'dropoff'}) {
+  const [mounted, setMounter] = useState(false)
+
+  useEffect(() => {
+    setMounter(true)
+  }, [])
+
+  if (!mounted) {
+    return <SelectorLoading />
+  }
+
   return (
     <form className={selectorForm}>
       <div className={selecotrTitleContainer}>
@@ -15,7 +28,7 @@ export default function SelectField({ title, type }: SelectorProps & {type: 'pic
       </div>
       <div className={selectorPickerContainer}>
 
-        <div className="flex flex-col gap-1 min-w-0">
+        <div className={selectorPickerItemInnerContainer}>
           <h2 className={selectorPickerItemInner}>Locations</h2>
           <LocationPicker type={type} />
         </div>
@@ -35,5 +48,6 @@ export default function SelectField({ title, type }: SelectorProps & {type: 'pic
         </div>
       </div>
     </form>
+
   )
 }

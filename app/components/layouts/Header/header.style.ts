@@ -1,7 +1,8 @@
 export const headerContainer =
   "bg-(--card-white-color) border-b border-(--header-border) ";
 
-export const headerWrapper = "grid grid-cols-[auto_1fr_auto] gap-16";
+export const headerWrapper =
+  "grid md:grid-cols-[auto_1fr_auto] gap-16 items-center";
 
 export const logoText =
   "uppercase text-[24px] md:text-[32px] text-(--logo-color) font-bold";
@@ -26,3 +27,20 @@ export const inputWrapper =
 
 export const settingButton =
   "rounded-[10px] cursor-pointer p-2.5 gap-2.5 border md:border-none border-(--header-border)";
+
+// Loading
+export const loadingLogo =
+  "w-[116px] animate-pulse bg-(--loading-color) rounded-full h-[16px]";
+export const loadingInput =
+  "items-center animate-pulse gap-2.5 h-[44px] flex w-full md:max-w-[492px] rounded-[10px] md:rounded-full md:px-4 md:border border-(--header-border)  md:focus-within:border-(--active-color) md:focus-within:shadow-[0_0_0_3px_rgba(59,130,246,0.15)]";
+export const loadingInputWrapper =
+  "flex items-center w-full h-full px-3 rounded-[10px] gap-2.5 border md:border-none border-(--header-border) md:focus-within:border-none focus-within:border-(--active-color) md:focus-within:shadow-none focus-within:shadow-[0_0_0_3px_rgba(59,130,246,0.15)]";
+export const loadingInputIcon =
+  "w-[15px] h-[15px] rounded-full bg-(--loading-color)";
+export const loadingInputText =
+  "bg-(--loading-color) rounded-full h-[15px] max-w-[115px] w-full";
+export const loadingIcon = "rounded-full border p-[10px] animate-pulse";
+
+export const loadingIconText = "text-(--loading-color)";
+export const loadingButton =
+  "h-[30px] w-[100px] rounded-md bg-(--loading-color)";

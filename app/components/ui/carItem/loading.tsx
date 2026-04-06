@@ -1,6 +1,5 @@
 import React from 'react'
-import { article } from './caritem.style'
-import { FaHeart, FaRegHeart } from 'react-icons/fa6'
+import { FaHeart } from 'react-icons/fa6'
 import { FaImage } from "react-icons/fa6";
 
 

@@ -101,7 +101,7 @@ export default function CarItem({
             {car_equipment}
           </span>
         </div>
-        <Button onClick={handleFavoriteClick} className={favoriteButton}>
+        <Button variant="link" onClick={handleFavoriteClick} className={favoriteButton}>
           {isFav ? <FaHeart size={20} className={isActiveFavoriteIcon} /> : <FaRegHeart size={20} className={defaultFavoriteIcon} />}
         </Button>
       </div>

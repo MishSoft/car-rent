@@ -1,0 +1,36 @@
+export const reviewArticle = "flex flex-col gap-5";
+export const reviewHeader = "flex items-center gap-3";
+export const reviewTitle = "text-xl font-semibold";
+export const reviewCount = "text-sm py-2 text-white px-3 bg-blue-400 rounded-xl";
+export const reviewsContainer = "flex flex-col gap-5";
+export const reviewItemContainer = "flex flex-col gap-5";
+export const reviewItemHeader = "flex items-center justify-between";
+export const reviewUserContainer = "flex items-center gap-3";
+export const reviewUserImage = "w-12 h-12 object-cover border-2 border-blue-300 rounded-full";
+export const reviewUserInfo = "flex flex-col";
+export const reviewUserName = "text-md font-semibold";
+export const reviewUserRole = "text-sm text-gray-400";
+export const reviewDateContainer = "flex flex-col gap-1 items-end";
+export const reviewDate = "text-sm text-gray-400";
+export const reviewStarsContainer = "flex items-center gap-2 text-yellow-500";
+export const reviewStarOutline = "text-gray-400";
+export const reviewContentContainer = "px-15 flex flex-col gap-3 items-start";
+export const reviewText = "text-md line-clamp-2 text-gray-400";
+export const reviewReadMoreButton = "text-blue-500 cursor-pointer";
+
+// Loading specifically
+export const reviewLoadingArticle = "flex flex-col gap-[36px]";
+export const reviewLoadingHeader = "flex items-center justify-between";
+export const reviewLoadingHeaderInner = "flex items-center gap-3";
+export const reviewLoadingHeaderLine1 = "w-[115px] h-[15px] rounded-full bg-(--loading-color)";
+export const reviewLoadingHeaderLine2 = "w-[15px] h-[15px] rounded-full bg-(--loading-secondary-color)";
+export const reviewLoadingItemContainer = "flex w-full items-start gap-5";
+export const reviewLoadingUserIconWrapper = "p-[10px] rounded-full border border-(--loading-secondary-color)";
+export const reviewLoadingUserIcon = "animate-pulse text-(--loading-color)";
+export const reviewLoadingContentContainer = "flex w-full flex-col gap-5";
+export const reviewLoadingLinesGrid = "w-full grid grid-cols-2 justify-between gap-2";
+export const reviewLoadingLineStartColor = "w-[116px] animate-pulse h-[16px] rounded-full bg-(--loading-color)";
+export const reviewLoadingLineEndColor = "w-[116px] animate-pulse h-[16px] justify-self-end rounded-full bg-(--loading-color)";
+export const reviewLoadingLineStartSecondaryColor = "w-[116px] animate-pulse h-[16px] rounded-full bg-(--loading-secondary-color)";
+export const reviewLoadingLineEndSecondaryColor = "w-[116px] animate-pulse h-[16px] rounded-full justify-self-end bg-(--loading-secondary-color)";
+export const reviewLoadingParagraph = "w-full h-[60px] rounded-xl bg-(--loading-secondary-color)";

@@ -1,7 +1,8 @@
 "use client"
 import { Checkbox } from '@/components/ui/checkbox'
 import { Slider } from '@/components/ui/slider'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import SidebarLoading from './loading'
 
 // initial data
 const carItems = [
@@ -45,6 +46,11 @@ export default function SideBar() {
   const [carData, setCarData] = useState<CarProps[]>(carItems)
   const [capacity, setCapacity] = useState<CarProps[]>(capacityData)
   const [price, setPrice] = useState<number>(100) // max price default
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   const handleCheck = (category: string, type: "car" | "capacity") => {
     if (type === "car") {
@@ -65,6 +71,8 @@ export default function SideBar() {
       )
     }
   }
+
+  if (!mounted) return <SidebarLoading />
 
   return (
     <aside className=" hidden lg:flex
@@ -121,5 +129,6 @@ export default function SideBar() {
         </div>
       </div>
     </aside>
+
   )
 }

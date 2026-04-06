@@ -11,6 +11,7 @@ import Review from "@/app/(main)/components/layout/Reviews/Review";
 import { FaAngleDown } from "react-icons/fa";
 import Recomendation from "@/app/components/layouts/Recomendation/Recomendation";
 import Link from "next/link";
+import RentalDetailLoading from "../loading";
 
 export default function Page() {
   const params = useParams();
@@ -42,27 +43,16 @@ export default function Page() {
     fetchCar();
   }, [id]);
 
-  // 🔄 Loading UI
-  if (loading) {
-    return (
-      <div className="p-10 text-center text-gray-500">
-        Loading car...
-      </div>
-    );
-  }
-
-  // ❌ Not found
-  if (!car) {
-    return (
-      <div className="p-10 text-center text-red-500">
-        Car not found
-      </div>
-    );
-  }
-
   return (
     <main className="w-full flex flex-col py-2 gap-5 px-6">
-      <div className="flex gap-8  flex-col sm:flex-row">
+      {loading ? (
+        <RentalDetailLoading />
+      ) : !car ? (
+        <div className="p-10 text-center text-red-500">
+          Car not found
+        </div>
+      ) : (
+        <div className="flex gap-8 flex-col sm:flex-row">
 
         {/* LEFT - IMAGES */}
         <div className="max-w-123 w-full flex flex-col gap-3">
@@ -132,7 +122,7 @@ export default function Page() {
                 </span>
               </h4>
             </div>
-            
+
             <Link href={`/payment?carId=${car.id}`}>
               <Button className="bg-blue-500 text-white hover:bg-blue-600">
                 Rent Now
@@ -141,6 +131,7 @@ export default function Page() {
           </div>
         </div>
       </div>
+      )}
 
       {/* Reviews */}
       <div className="bg-white flex flex-col  p-5 rounded-xl">

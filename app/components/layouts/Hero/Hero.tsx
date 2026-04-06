@@ -1,6 +1,5 @@
 import PromoCard from '../../ui/PromoCard/PromoCard'
 import { getPromoCardStyles } from '../../ui/PromoCard/promoCard.style'
-import { container } from '../layout'
 import { herContainer, heroInner, heroWrapper, proCardContainer } from './hero.style'
 
 export default function Hero() {
